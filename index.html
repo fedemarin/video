@@ -16,48 +16,26 @@
     .badge.link:hover { background: #26303f; }
     .badge.aviso-ext { background: #5a3a00; color: #ffd27a; }
     .oculto { display: none !important; }
-
-    .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000;
-      border-radius: 10px; overflow: hidden; }
+    .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000; border-radius: 10px; overflow: hidden; }
     .player-box iframe { width: 100%; height: 100%; border: 0; display: block; }
-
-    /* capa que tapa el iframe: captura clics (evita popunders) y trae controles */
     .overlay { position: absolute; inset: 0; cursor: pointer; }
-    .controls { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px 8px;
-      background: linear-gradient(transparent, rgba(0,0,0,.75));
-      transition: opacity .25s; display: flex; flex-direction: column; gap: 6px; }
+    .controls { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px 8px; background: linear-gradient(transparent, rgba(0,0,0,.75)); transition: opacity .25s; display: flex; flex-direction: column; gap: 6px; }
     .player-box.oculto-controles .controls { opacity: 0; }
     .player-box.oculto-controles .overlay { cursor: none; }
-
-    .titulo-top { position: absolute; left: 0; right: 0; top: 0; z-index: 4;
-      padding: 10px 14px; font-size: .9rem; font-weight: 600; color: #fff;
-      background: linear-gradient(rgba(0,0,0,.7), transparent);
-      transition: opacity .25s; pointer-events: none; }
+    .titulo-top { position: absolute; left: 0; right: 0; top: 0; z-index: 4; padding: 10px 14px; font-size: .9rem; font-weight: 600; color: #fff; background: linear-gradient(rgba(0,0,0,.7), transparent); transition: opacity .25s; pointer-events: none; }
     .player-box.oculto-controles .titulo-top { opacity: 0; }
-
-    .next-banner { position: absolute; right: 16px; bottom: 64px; z-index: 5;
-      background: rgba(20,20,28,.92); color: #fff; padding: 10px 16px; border-radius: 10px;
-      font-size: .95rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.5);
-      opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .3s, transform .3s; }
+    .next-banner { position: absolute; right: 16px; bottom: 64px; z-index: 5; background: rgba(20,20,28,.92); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: .95rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.5); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .3s, transform .3s; }
     .next-banner.mostrar { opacity: 1; transform: translateY(0); }
-
-    .barra { -webkit-appearance: none; appearance: none; width: 100%; height: 5px;
-      border-radius: 4px; background: #555; cursor: pointer; }
-    .barra::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px;
-      border-radius: 50%; background: #3b82f6; }
+    .barra { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 4px; background: #555; cursor: pointer; }
+    .barra::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: #3b82f6; }
     .fila { display: flex; align-items: center; gap: 12px; }
-    .fila button { background: transparent; color: #fff; border: 0; font-size: 1.05rem;
-      cursor: pointer; padding: 2px 4px; line-height: 1; }
+    .fila button { background: transparent; color: #fff; border: 0; font-size: 1.05rem; cursor: pointer; padding: 2px 4px; line-height: 1; }
     .tiempo { font-size: .8rem; color: #cdd; min-width: 92px; }
     .vol { width: 90px; }
     .spacer { flex: 1; }
-
-    /* navegacion de capitulos: FUERA del reproductor */
     .nav-caps { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
-    .nav-caps button { background: #3b82f6; color: #fff; border: 0; padding: 9px 14px;
-      border-radius: 8px; cursor: pointer; font-size: .9rem; }
+    .nav-caps button { background: #3b82f6; color: #fff; border: 0; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .9rem; }
     .nav-caps button:disabled { background: #2a2a33; color: #777; cursor: default; }
-
     .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; align-items: center; }
     .chip { background: #1d1d24; padding: 4px 10px; border-radius: 8px; font-size: .8rem; }
     select { background: #1d1d24; color: #eee; border: 1px solid #333; border-radius: 8px; padding: 6px; }
@@ -70,48 +48,44 @@
     <header class="topbar">
       <h1 id="serie">Canal TV</h1>
       <div class="top-acciones">
-        <a id="dl-ext" class="badge link oculto" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer (anti-publicidad + autoplay)">⬇ Instalar extensión FedePlayer</a>
+        <a id="dl-ext" class="badge link oculto" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer">⬇ Instalar extensión FedePlayer</a>
         <span id="contador" class="badge">Cargando…</span>
       </div>
     </header>
 
     <div class="player-box" id="box">
-      <iframe id="player"
-        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-        allowfullscreen referrerpolicy="origin"></iframe>
-
+      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe>
       <div class="titulo-top" id="titulo-top"></div>
-      <div class="next-banner" id="next-banner">Siguiente capítulo ▶</div>
-
+      <div class="next-banner" id="next-banner">Siguiente capítulo &#9654;</div>
       <div class="overlay" id="overlay">
         <div class="controls" id="controls">
           <input type="range" id="prog" class="barra" min="0" max="100" value="0" step="0.1" />
           <div class="fila">
-            <button id="b-play" title="Reproducir/Pausar">▶</button>
-            <button id="b-back10" title="Atrasar 10s">⏪ 10</button>
-            <button id="b-fwd10" title="Adelantar 10s">10 ⏩</button>
-            <button id="b-mute" title="Silenciar">🔊</button>
+            <button id="b-play" title="Reproducir/Pausar">&#9654;</button>
+            <button id="b-back10" title="Atrasar 10s">&#9194; 10</button>
+            <button id="b-fwd10" title="Adelantar 10s">10 &#9193;</button>
+            <button id="b-mute" title="Silenciar">&#128266;</button>
             <input type="range" id="vol" class="vol barra" min="0" max="1" value="1" step="0.05" />
             <span class="tiempo" id="tiempo">0:00 / 0:00</span>
             <span class="spacer"></span>
-            <button id="b-full" title="Pantalla completa">⛶</button>
+            <button id="b-full" title="Pantalla completa">&#9974;</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- navegacion de capitulos, FUERA del reproductor -->
     <div class="nav-caps">
-      <button id="b-prev">⏮ Anterior</button>
+      <button id="b-prev">&#9198; Anterior</button>
       <label class="chip">Episodio: <select id="sel-cap"></select></label>
-      <button id="b-next">Siguiente ⏭</button>
+      <button id="b-next">Siguiente &#9197;</button>
     </div>
 
     <div class="chips">
       <label class="chip">Serie: <select id="sel-serie"></select></label>
-      <span class="chip" id="chip-idioma">—</span>
+      <span class="chip" id="chip-idioma">&mdash;</span>
       <label class="chip">Servidor: <select id="sel-servidor"></select></label>
       <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente</label>
+      <button id="b-reporte" class="chip" style="cursor:pointer" title="Descargar lista de links rotos y capítulos sin servidor">&#129658; Reporte de fallos</button>
     </div>
     <p id="estado"></p>
     <p class="aviso" id="aviso"></p>
@@ -122,92 +96,62 @@
     const $ = (s) => document.querySelector(s);
     const iframe = $("#player"), box = $("#box");
 
-    let series = [];          // [{titulo, capitulos:[...]}]
+    let series = [];
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
     let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioDeadline = 0, resumeT = 0;
 
-    // --- recordar qué se estaba mirando (serie, capítulo, segundo) ---
-    function guardarEstado() {
-      try { localStorage.setItem("canaltv_estado", JSON.stringify({ serie: idxSerie, cap: idxCap, t: Math.floor(lastT || 0) })); } catch (e) {}
-    }
-    function restaurarEstado() {
-      try {
-        const s = JSON.parse(localStorage.getItem("canaltv_estado") || "null");
-        if (s && series[s.serie] && series[s.serie].caps[s.cap]) {
-          idxSerie = s.serie; idxCap = s.cap; resumeT = s.t || 0;
-        }
-      } catch (e) {}
-    }
+    function guardarEstado() { try { localStorage.setItem("canaltv_estado", JSON.stringify({ serie: idxSerie, cap: idxCap, t: Math.floor(lastT || 0) })); } catch (e) {} }
+    function restaurarEstado() { try { const s = JSON.parse(localStorage.getItem("canaltv_estado") || "null"); if (s && series[s.serie] && series[s.serie].caps[s.cap]) { idxSerie = s.serie; idxCap = s.cap; resumeT = s.t || 0; } } catch (e) {} }
 
-    // El orden marca la PRIORIDAD: StreamWish primero (default), luego EarnVids.
-    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "NETU", "STREAMTAPE"];
-    const CANALES = ["streamwish", "earnvids", "uqload", "netu", "streamtape"]; // canales que envía FedePlayer
-    const FP_VERSION_OK = "1.2.4"; // versión esperada de la extensión FedePlayer
+    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "DOOD", "STREAMTAPE"];
+    const CANALES = ["streamwish", "earnvids", "uqload", "dood", "netu", "streamtape"];
+    const SERVIDORES_NO_USAR = ["NETU"]; // bloquea por referer: no anda embebido
+    const FP_VERSION_OK = "1.3.0";
 
-    // Muestra/oculta el botón de instalar según versión detectada de FedePlayer.
     function evaluarExtension(version) {
       const btn = $("#dl-ext");
-      if (version === FP_VERSION_OK) {            // al día -> ocultar
-        btn.classList.add("oculto"); btn.classList.remove("aviso-ext");
-      } else {                                    // falta o vieja -> mostrar
-        btn.classList.remove("oculto");
-        if (version) { btn.classList.add("aviso-ext"); btn.textContent = "⬇ Actualizar extensión FedePlayer (v" + version + " → " + FP_VERSION_OK + ")"; }
-        else { btn.textContent = "⬇ Instalar extensión FedePlayer"; }
-      }
+      if (version === FP_VERSION_OK) { btn.classList.add("oculto"); btn.classList.remove("aviso-ext"); }
+      else { btn.classList.remove("oculto"); if (version) { btn.classList.add("aviso-ext"); btn.textContent = "⬇ Actualizar extensión FedePlayer (v" + version + " → " + FP_VERSION_OK + ")"; } else { btn.textContent = "⬇ Instalar extensión FedePlayer"; } }
     }
-    // Si en 8s no llegó ningún mensaje de FedePlayer, asumimos que no está.
-    setTimeout(() => { if ($("#dl-ext").textContent.indexOf("→") === -1 && !window.__fpVisto) evaluarExtension(null); }, 8000);
+    setTimeout(() => { if (!window.__fpVisto) evaluarExtension(null); }, 8000);
 
-    // Orden en que se prueban los servidores de un capítulo:
-    // primero los soportados (por prioridad), luego el resto como respaldo.
+    // --- registro de links rotos ---
+    let rotos = {};
+    try { rotos = JSON.parse(localStorage.getItem("canaltv_rotos") || "{}"); } catch (e) {}
+    function keyR(tit, cap, srv) { return tit + "#" + cap + "#" + (srv || "").toUpperCase(); }
+    function guardarRotos() { try { localStorage.setItem("canaltv_rotos", JSON.stringify(rotos)); } catch (e) {} }
+    function esRoto(tit, cap, srv) { return !!rotos[keyR(tit, cap, srv)]; }
+    function marcarRoto(srv, motivo) { const cap = series[idxSerie].caps[idxCap]; rotos[keyR(series[idxSerie].titulo, cap.capitulo, srv)] = { serie: series[idxSerie].titulo, cap: cap.capitulo, servidor: srv, url: cap.fuentes[idxFuente].embed_url, motivo: motivo || "", ts: new Date().toISOString() }; guardarRotos(); }
+    function marcarOk(srv) { const cap = series[idxSerie].caps[idxCap]; const k = keyR(series[idxSerie].titulo, cap.capitulo, srv); if (rotos[k]) { delete rotos[k]; guardarRotos(); } }
+
     function ordenFuentes(cap) {
+      const tit = series[idxSerie].titulo;
       const sup = [];
-      SERVIDORES_SOPORTADOS.forEach((srv) => {
-        cap.fuentes.forEach((f, i) => { if ((f.servidor || "").toUpperCase() === srv) sup.push(i); });
-      });
-      const resto = cap.fuentes.map((_, i) => i).filter((i) => !sup.includes(i));
-      return sup.concat(resto);
+      SERVIDORES_SOPORTADOS.forEach((srv) => { cap.fuentes.forEach((f, i) => { if ((f.servidor || "").toUpperCase() === srv) sup.push(i); }); });
+      const resto = cap.fuentes.map((_, i) => i).filter((i) => !sup.includes(i) && !SERVIDORES_NO_USAR.includes((cap.fuentes[i].servidor || "").toUpperCase()));
+      const orden = sup.concat(resto);
+      orden.sort((a, b) => (esRoto(tit, cap.capitulo, cap.fuentes[a].servidor) ? 1 : 0) - (esRoto(tit, cap.capitulo, cap.fuentes[b].servidor) ? 1 : 0));
+      return orden;
     }
 
     let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null, reintentos = 0;
     const MAX_REINTENTOS = 2;
 
-    function cargarCapitulo() {
-      const cap = series[idxSerie].caps[idxCap];
-      ordenActual = ordenFuentes(cap);
-      posOrden = 0;
-      idxFuente = ordenActual[0];
-      reproducir();
-    }
+    function cargarCapitulo() { const cap = series[idxSerie].caps[idxCap]; ordenActual = ordenFuentes(cap); posOrden = 0; idxFuente = ordenActual[0]; reproducir(); }
 
-    // Ante un fallo: primero reintenta el MISMO servidor una vez (UQLOAD y otros
-    // a veces sirven una página de anuncio en la 1ª carga y andan en la 2ª).
-    // Si vuelve a fallar, recién ahí salta al siguiente servidor.
     function probarSiguienteFuente(motivo) {
       if (reproduciendoOK) return;
-      if (reintentos < MAX_REINTENTOS) {
-        reintentos++;
-        estado("Recargando servidor (intento " + reintentos + ", " + (motivo || "") + ")…");
-        reproducir(true);   // recarga el mismo, sin resetear el contador
-        return;
-      }
-      if (posOrden + 1 < ordenActual.length) {
-        posOrden++;
-        idxFuente = ordenActual[posOrden];
-        const nom = series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor;
-        estado("Servidor falló (" + (motivo || "") + "). Probando " + nom + "…");
-        reproducir();
-      } else {
-        $("#aviso").textContent = "⚠ Ningún servidor respondió. Si OTROS capítulos sí andan, es saturación/publicidad del host (probá de nuevo en un rato). Si NINGÚN capítulo anda, recargá la extensión FedePlayer.";
-        estado("Ningún servidor del capítulo respondió.");
-      }
+      if (reintentos < MAX_REINTENTOS) { reintentos++; estado("Recargando servidor (intento " + reintentos + ", " + (motivo || "") + ")…"); reproducir(true); return; }
+      marcarRoto(series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor, motivo);
+      if (posOrden + 1 < ordenActual.length) { posOrden++; idxFuente = ordenActual[posOrden]; const nom = series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor; estado("Servidor falló (" + (motivo || "") + "). Probando " + nom + "…"); reproducir(); }
+      else { $("#aviso").textContent = "⚠ Ningún servidor respondió. Si OTROS capítulos andan, es saturación del host (probá luego). Si NINGUNO anda, recargá la extensión FedePlayer."; estado("Ningún servidor del capítulo respondió."); }
     }
+
     function estado(m) { $("#estado").textContent = m; }
     function fmt(s) { s = Math.max(0, Math.floor(s || 0)); const m = Math.floor(s / 60); const x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
     function cmd(c, value) { try { iframe.contentWindow.postMessage({ canal: "canal-cmd", cmd: c, value }, "*"); } catch (e) {} }
 
-    // ---- normalizar datos: soporta multi-serie {series:[...]} o serie unica ----
     function normalizar(data) {
       const lista = data.series ? data.series : [data];
       return lista.map((s) => {
@@ -215,126 +159,73 @@
         const caps = [];
         (s.temporadas || []).forEach((t) => (t.capitulos || []).forEach((c) => {
           const fuentes = (c.fuentes || []).filter((f) => (f.idioma || "").toUpperCase() === "LAT");
-          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes,
-            inicio_seg: c.inicio_seg || 0, fin_seg: (c.fin_seg == null ? null : c.fin_seg) });
+          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes, inicio_seg: c.inicio_seg || 0, fin_seg: (c.fin_seg == null ? null : c.fin_seg) });
         }));
         caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
         return { titulo: serie.titulo || "Serie", caps };
       }).filter((s) => s.caps.length);
     }
     async function obtenerDatos() {
-      // En file:// el fetch de data.json da error de CORS: usamos directo data.js.
-      if (location.protocol !== "file:") {
-        try { const r = await fetch("data.json", { cache: "no-store" }); if (r.ok) return await r.json(); } catch (e) {}
-      }
+      if (location.protocol !== "file:") { try { const r = await fetch("data.json", { cache: "no-store" }); if (r.ok) return await r.json(); } catch (e) {} }
       if (window.CANAL_DATA) return window.CANAL_DATA;
       throw new Error("no se encontraron datos");
     }
-
-    function pintarSelectSeries() {
-      const sel = $("#sel-serie"); sel.innerHTML = "";
-      series.forEach((s, i) => { const o = document.createElement("option"); o.value = i; o.textContent = s.titulo; sel.appendChild(o); });
-      sel.value = idxSerie;
-    }
-    function pintarCaps(serie) {
-      const sel = $("#sel-cap"); sel.innerHTML = "";
-      serie.caps.forEach((c, i) => {
-        const o = document.createElement("option");
-        o.value = i;
-        o.textContent = `T${c.temporada} E${c.capitulo}` + (c.titulo ? " · " + c.titulo : "");
-        sel.appendChild(o);
-      });
-    }
-    function pintarServidores(cap) {
-      const sel = $("#sel-servidor"); sel.innerHTML = "";
-      cap.fuentes.forEach((f, i) => { const o = document.createElement("option"); o.value = i; o.textContent = f.servidor; sel.appendChild(o); });
-      sel.value = idxFuente;
-    }
+    function pintarSelectSeries() { const sel = $("#sel-serie"); sel.innerHTML = ""; series.forEach((s, i) => { const o = document.createElement("option"); o.value = i; o.textContent = s.titulo; sel.appendChild(o); }); sel.value = idxSerie; }
+    function pintarCaps(serie) { const sel = $("#sel-cap"); sel.innerHTML = ""; serie.caps.forEach((c, i) => { const o = document.createElement("option"); o.value = i; o.textContent = "T" + c.temporada + " E" + c.capitulo + (c.titulo ? " · " + c.titulo : ""); sel.appendChild(o); }); }
+    function pintarServidores(cap) { const sel = $("#sel-servidor"); sel.innerHTML = ""; cap.fuentes.forEach((f, i) => { const o = document.createElement("option"); o.value = i; o.textContent = f.servidor; sel.appendChild(o); }); sel.value = idxFuente; }
 
     function reproducir(recarga) {
       const serie = series[idxSerie]; if (!serie) return;
       const cap = serie.caps[idxCap]; if (!cap) return;
-      if (!recarga) reintentos = 0;   // carga nueva: se habilitan los reintentos
+      if (!recarga) reintentos = 0;
       const fuente = cap.fuentes[idxFuente];
       $("#serie").textContent = serie.titulo;
       $("#titulo-top").textContent = serie.titulo + " · T" + cap.temporada + " E" + cap.capitulo + (cap.titulo ? " · " + cap.titulo : "");
       $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
-      $("#contador").textContent = `Cap ${idxCap + 1}/${serie.caps.length}`;
+      $("#contador").textContent = "Cap " + (idxCap + 1) + "/" + serie.caps.length;
       $("#sel-cap").value = idxCap;
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
       inicioSeg = cap.inicio_seg || 0;
-      if (resumeT > 5) inicioSeg = resumeT;   // al refrescar, retomar donde quedó
+      if (resumeT > 5) inicioSeg = resumeT;
       resumeT = 0;
       finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
-      inicioDeadline = Date.now() + 12000; // ventana para forzar el inicio
+      inicioDeadline = Date.now() + 12000;
       $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
       $("#aviso").textContent = "";
-      // cache-bust al recargar para forzar que el host vuelva a servir el video
       iframe.src = fuente.embed_url + (recarga ? (fuente.embed_url.includes("?") ? "&" : "?") + "r=" + Date.now() : "");
       estado("Cargando " + fuente.servidor + (recarga ? " (reintento)…" : "…"));
-      // failover: si el servidor no arranca en 9s, reintenta / prueba el siguiente.
       clearTimeout(fallbackTimer);
       fallbackTimer = setTimeout(() => probarSiguienteFuente("sin respuesta"), 9000);
     }
-    function irA(delta) {
-      const serie = series[idxSerie];
-      const n = idxCap + delta;
-      if (n < 0 || n >= serie.caps.length) return;
-      idxCap = n; cargarCapitulo();
-    }
+    function irA(delta) { const serie = series[idxSerie]; const n = idxCap + delta; if (n < 0 || n >= serie.caps.length) return; idxCap = n; cargarCapitulo(); }
 
-    // ---- estado del userscript ----
-    function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "⏸" : "▶"; }
+    function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "❚❚" : "▶"; }
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
       if (d.version) { window.__fpVisto = true; evaluarExtension(d.version); }
-      if (d.tipo === "fp") return; // solo anuncio de presencia/versión
-      if (d.tipo === "error") { reintentos = MAX_REINTENTOS; probarSiguienteFuente(d.motivo || "error"); return; } // video caído: saltar directo al respaldo
-      if (d.tipo === "listo" || d.tipo === "play") {
-        userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo).");
-        avanzando = false; // el nuevo capítulo ya arrancó: rehabilita el auto-siguiente
-      }
+      if (d.tipo === "fp") return;
+      if (d.tipo === "error") { reintentos = MAX_REINTENTOS; probarSiguienteFuente(d.motivo || "error"); return; }
+      if (d.tipo === "listo" || d.tipo === "play") { userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo)."); avanzando = false; }
       if (d.tipo === "estado") {
         userscriptActivo = true; setPlayIcon(!!d.playing);
-        // el video está reproduciendo de verdad: cancela el failover de este intento
-        if (d.playing && (d.t > 0 || d.dur > 0)) { reproduciendoOK = true; clearTimeout(fallbackTimer); }
+        if (d.playing && (d.t > 0 || d.dur > 0)) { reproduciendoOK = true; clearTimeout(fallbackTimer); marcarOk(series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor); }
         dur = d.dur || dur; lastT = d.t || 0;
         if (!seekeando && dur) $("#prog").value = (d.t / dur) * 100;
         $("#tiempo").textContent = fmt(d.t) + " / " + fmt(dur);
         guardarEstado();
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
-
-        // forzar el inicio configurado: mientras estemos en la ventana inicial
-        // y el video esté por debajo del inicio, seguimos mandando el seek.
-        // Esto cubre players (ej. Streamtape) que recargan/reinician a 0.
-        if (!inicioAplicado && inicioSeg > 0 && dur > 0) {
-          if (d.t >= inicioSeg - 3) inicioAplicado = true;          // ya quedó posicionado
-          else if (Date.now() < inicioDeadline) cmd("seek", inicioSeg);
-          else inicioAplicado = true;                               // se agotó la ventana
-        }
-        // fin configurado: >=0 segundo absoluto; <0 = "N seg antes del final"
+        if (!inicioAplicado && inicioSeg > 0 && dur > 0) { if (d.t >= inicioSeg - 3) inicioAplicado = true; else if (Date.now() < inicioDeadline) cmd("seek", inicioSeg); else inicioAplicado = true; }
         let finReal = null;
         if (finSeg != null) finReal = finSeg < 0 ? (dur > 0 ? dur + finSeg : null) : finSeg;
-        if (finReal != null) {
-          // solo habilitamos el corte DESPUÉS de confirmar que estamos antes del fin
-          if (d.t < finReal - 2) finHabilitado = true;
-          if (finHabilitado && d.t >= finReal) {
-            $("#next-banner").classList.add("mostrar");
-            if ($("#auto").checked && !avanzando) { avanzando = true; estado("Pasando al siguiente capítulo…"); irA(1); }
-          }
-        }
+        if (finReal != null) { if (d.t < finReal - 2) finHabilitado = true; if (finHabilitado && d.t >= finReal) { $("#next-banner").classList.add("mostrar"); if ($("#auto").checked && !avanzando) { avanzando = true; estado("Pasando al siguiente capítulo…"); irA(1); } } }
       }
-      // fin natural del video (si no hay fin_seg)
-      if ((d.tipo === "ended" || d.tipo === "casi-fin") && finSeg == null) {
-        if ($("#auto").checked && !avanzando) { avanzando = true; estado("Capítulo terminado, siguiente…"); irA(1); }
-      }
+      if ((d.tipo === "ended" || d.tipo === "casi-fin") && finSeg == null) { if ($("#auto").checked && !avanzando) { avanzando = true; estado("Capítulo terminado, siguiente…"); irA(1); } }
     });
 
-    // ---- controles dentro del reproductor ----
     $("#overlay").addEventListener("click", (e) => { if (e.target.id === "overlay") cmd("toggle"); });
     $("#b-play").addEventListener("click", (e) => { e.stopPropagation(); cmd("toggle"); });
     $("#b-back10").addEventListener("click", (e) => { e.stopPropagation(); cmd("seek", Math.max(0, lastT - 10)); });
@@ -343,30 +234,26 @@
     $("#vol").addEventListener("input", (e) => { e.stopPropagation(); cmd("volume", parseFloat(e.target.value)); });
     $("#prog").addEventListener("mousedown", () => { seekeando = true; });
     $("#prog").addEventListener("change", (e) => { if (dur) cmd("seek", (parseFloat(e.target.value) / 100) * dur); seekeando = false; });
-    $("#b-full").addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (!document.fullscreenElement) box.requestFullscreen && box.requestFullscreen();
-      else document.exitFullscreen && document.exitFullscreen();
-    });
+    $("#b-full").addEventListener("click", (e) => { e.stopPropagation(); if (!document.fullscreenElement) box.requestFullscreen && box.requestFullscreen(); else document.exitFullscreen && document.exitFullscreen(); });
 
-    // ---- navegacion (fuera del reproductor) ----
+    function generarReporte() {
+      const sinServidor = [];
+      series.forEach((s) => s.caps.forEach((c) => { const sup = c.fuentes.filter((f) => SERVIDORES_SOPORTADOS.includes((f.servidor || "").toUpperCase())); if (sup.length && sup.every((f) => esRoto(s.titulo, c.capitulo, f.servidor))) sinServidor.push({ serie: s.titulo, cap: c.capitulo, servidoresRotos: sup.map((f) => f.servidor) }); }));
+      const rep = { generado: new Date().toISOString(), totalLinksRotos: Object.keys(rotos).length, capitulosSinServidor: sinServidor, detalleRotos: Object.values(rotos) };
+      const blob = new Blob([JSON.stringify(rep, null, 2)], { type: "application/json" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "reporte-fallos.json"; a.click();
+      estado("Reporte descargado: " + Object.keys(rotos).length + " links rotos, " + sinServidor.length + " capítulos sin servidor que ande.");
+    }
+    $("#b-reporte").addEventListener("click", generarReporte);
+
     $("#b-prev").addEventListener("click", () => irA(-1));
     $("#b-next").addEventListener("click", () => irA(1));
     $("#sel-cap").addEventListener("change", (e) => { idxCap = +e.target.value; cargarCapitulo(); });
-    $("#sel-servidor").addEventListener("change", (e) => {
-      idxFuente = +e.target.value;
-      const p = ordenActual.indexOf(idxFuente); posOrden = p >= 0 ? p : 0; // seguir el failover desde acá
-      reproducir();
-    });
+    $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; const p = ordenActual.indexOf(idxFuente); posOrden = p >= 0 ? p : 0; reproducir(); });
     $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; pintarCaps(series[idxSerie]); cargarCapitulo(); });
 
-    // ---- mostrar/ocultar controles con el mouse ----
     let tOcultar;
-    function mostrarControles() {
-      box.classList.remove("oculto-controles");
-      clearTimeout(tOcultar);
-      tOcultar = setTimeout(() => { if (playing) box.classList.add("oculto-controles"); }, 3000);
-    }
+    function mostrarControles() { box.classList.remove("oculto-controles"); clearTimeout(tOcultar); tOcultar = setTimeout(() => { if (playing) box.classList.add("oculto-controles"); }, 3000); }
     box.addEventListener("mousemove", mostrarControles);
     box.addEventListener("mouseleave", () => { if (playing) box.classList.add("oculto-controles"); });
     mostrarControles();
