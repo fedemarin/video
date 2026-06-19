@@ -193,7 +193,7 @@
       estado("Cargando " + fuente.servidor + "…");
       setTimeout(() => {
         $("#aviso").textContent = userscriptActivo ? "" :
-          "⚠ No detecté el userscript en este servidor (sin él hay publicidad y no andan los controles). Actualizá el userscript o probá otro servidor.";
+          "⚠ No detecté FedePlayer en este servidor (sin la extensión hay publicidad y no andan los controles). Instalá/recargá la extensión FedePlayer o probá otro servidor.";
       }, 4500);
     }
     function irA(delta) {
@@ -208,7 +208,7 @@
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
       if (d.tipo === "listo" || d.tipo === "play") {
-        userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (userscript activo).");
+        userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo).");
         avanzando = false; // el nuevo capítulo ya arrancó: rehabilita el auto-siguiente
       }
       if (d.tipo === "estado") {
