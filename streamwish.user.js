@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
 // @namespace    https://github.com/fedemarin/video
-// @version      2.1.0
+// @version      2.1.1
 // @description  Bloquea popups, arranca el video solo, sube el volumen gradual y avisa al padre cuando termina. Con logs [CanalTV] para depurar.
 // @author       vos
 // @match        https://streamwish.top/e/*
@@ -13,13 +13,14 @@
 // @downloadURL  https://fedemarin.github.io/video/streamwish.user.js
 // ==/UserScript==
 
+/* global jwplayer */
 (function () {
   "use strict";
 
   // ---------- LOG ----------
   const T0 = performance.now();
   const log = (...a) => console.log("[CanalTV +" + (performance.now() - T0).toFixed(0) + "ms]", ...a);
-  log("userscript v2.0.0 iniciado. window.open era nativo?:",
+  log("userscript v2.1.1 iniciado. window.open era nativo?:",
       String(window.open).indexOf("native code") >= 0);
 
   // ---------- 1) BLOQUEO DE POPUPS (varias vias) ----------

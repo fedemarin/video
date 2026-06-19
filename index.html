@@ -101,7 +101,7 @@
 
     let series = [];          // [{titulo, capitulos:[...]}]
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
-    let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false;
+    let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
 
     const SERVIDORES_SOPORTADOS = ["STREAMWISH"];
     function fuenteInicial(cap) {
@@ -154,7 +154,7 @@
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
-      userscriptActivo = false; dur = 0; lastT = 0; setPlayIcon(false);
+      userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
       estado("Cargando " + fuente.servidor + "…");
       setTimeout(() => {
@@ -182,7 +182,9 @@
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
       }
-      if (d.tipo === "ended" || d.tipo === "casi-fin") { if ($("#auto").checked) { estado("Capítulo terminado, siguiente…"); irA(1); } }
+      if (d.tipo === "ended" || d.tipo === "casi-fin") {
+        if ($("#auto").checked && !avanzando) { avanzando = true; estado("Capítulo terminado, siguiente…"); irA(1); }
+      }
     });
 
     // ---- controles dentro del reproductor ----
