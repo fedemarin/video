@@ -31,10 +31,11 @@
     </header>
 
     <div class="player-box">
-      <!-- sandbox: bloquea popups (sin allow-popups) y que el host secuestre
-           la pestaña (sin allow-top-navigation). El userscript igual corre. -->
+      <!-- SIN sandbox: STREAMWISH (y otros) rechazan cargar dentro de un
+           iframe con sandbox ("Sandboxed embed is not allowed"). Los popups
+           ahora los bloquea el userscript (anula window.open), asi que el
+           sandbox ya no hace falta en los servidores soportados. -->
       <iframe id="player"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
         allowfullscreen referrerpolicy="origin"></iframe>
     </div>
