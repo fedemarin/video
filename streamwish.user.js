@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
-// @namespace    https://github.com/TU_USUARIO/TU_REPO
+// @namespace    https://github.com/fedemarin/video
 // @version      1.0.0
 // @description  Oculta publicidad, arranca el video solo y avisa a la pagina padre cuando termina, para pasar al siguiente capitulo.
 // @author       vos
@@ -9,8 +9,8 @@
 // @match        https://streamwish.to/e/*
 // @run-at       document-start
 // @grant        none
-// @updateURL    https://TU_USUARIO.github.io/TU_REPO/streamwish.user.js
-// @downloadURL  https://TU_USUARIO.github.io/TU_REPO/streamwish.user.js
+// @updateURL    https://fedemarin.github.io/video/streamwish.user.js
+// @downloadURL  https://fedemarin.github.io/video/streamwish.user.js
 // ==/UserScript==
 
 (function () {
