@@ -11,6 +11,9 @@
     .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     h1 { font-size: 1.1rem; margin: 0; }
     .badge { background: #1d1d24; padding: 4px 10px; border-radius: 999px; font-size: .8rem; }
+    .top-acciones { display: flex; gap: 8px; align-items: center; }
+    .badge.link { color: #8ab4ff; text-decoration: none; cursor: pointer; }
+    .badge.link:hover { background: #26303f; }
 
     .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000;
       border-radius: 10px; overflow: hidden; }
@@ -64,7 +67,10 @@
   <main class="app">
     <header class="topbar">
       <h1 id="serie">Canal TV</h1>
-      <span id="contador" class="badge">Cargando…</span>
+      <div class="top-acciones">
+        <a id="dl-ext" class="badge link" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer (anti-publicidad + autoplay)">⬇ Instalar FedePlayer</a>
+        <span id="contador" class="badge">Cargando…</span>
+      </div>
     </header>
 
     <div class="player-box" id="box">
@@ -117,11 +123,24 @@
     let series = [];          // [{titulo, capitulos:[...]}]
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
-    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioDeadline = 0;
+    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioDeadline = 0, resumeT = 0;
+
+    // --- recordar qué se estaba mirando (serie, capítulo, segundo) ---
+    function guardarEstado() {
+      try { localStorage.setItem("canaltv_estado", JSON.stringify({ serie: idxSerie, cap: idxCap, t: Math.floor(lastT || 0) })); } catch (e) {}
+    }
+    function restaurarEstado() {
+      try {
+        const s = JSON.parse(localStorage.getItem("canaltv_estado") || "null");
+        if (s && series[s.serie] && series[s.serie].caps[s.cap]) {
+          idxSerie = s.serie; idxCap = s.cap; resumeT = s.t || 0;
+        }
+      } catch (e) {}
+    }
 
     // El orden marca la PRIORIDAD: StreamWish primero (default), luego EarnVids.
-    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "STREAMTAPE"];
-    const CANALES = ["streamwish", "earnvids", "streamtape"]; // canales que envía FedePlayer
+    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "STREAMTAPE"];
+    const CANALES = ["streamwish", "earnvids", "uqload", "streamtape"]; // canales que envía FedePlayer
 
     // Orden en que se prueban los servidores de un capítulo:
     // primero los soportados (por prioridad), luego el resto como respaldo.
@@ -214,7 +233,10 @@
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
-      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
+      inicioSeg = cap.inicio_seg || 0;
+      if (resumeT > 5) inicioSeg = resumeT;   // al refrescar, retomar donde quedó
+      resumeT = 0;
+      finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
       inicioDeadline = Date.now() + 12000; // ventana para forzar el inicio
       $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
@@ -251,6 +273,7 @@
         dur = d.dur || dur; lastT = d.t || 0;
         if (!seekeando && dur) $("#prog").value = (d.t / dur) * 100;
         $("#tiempo").textContent = fmt(d.t) + " / " + fmt(dur);
+        guardarEstado();
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
 
@@ -321,6 +344,7 @@
       try {
         series = normalizar(await obtenerDatos());
         if (!series.length) { estado("No hay series con fuentes en latino."); return; }
+        restaurarEstado();
         pintarSelectSeries();
         pintarCaps(series[idxSerie]);
         cargarCapitulo();
