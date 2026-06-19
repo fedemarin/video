@@ -12,13 +12,11 @@
     h1 { font-size: 1.1rem; margin: 0; }
     .badge { background: #1d1d24; padding: 4px 10px; border-radius: 999px; font-size: .8rem; }
 
-    /* contenedor del player con la capa de controles propia */
     .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000;
       border-radius: 10px; overflow: hidden; }
     .player-box iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-    /* CAPA que tapa el iframe: captura los clics (evita popunders del host)
-       y muestra los controles propios. */
+    /* capa que tapa el iframe: captura clics (evita popunders) y trae controles */
     .overlay { position: absolute; inset: 0; cursor: pointer; }
     .controls { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px 8px;
       background: linear-gradient(transparent, rgba(0,0,0,.75));
@@ -31,19 +29,21 @@
     .barra::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px;
       border-radius: 50%; background: #3b82f6; }
     .fila { display: flex; align-items: center; gap: 12px; }
-    .fila button { background: transparent; color: #fff; border: 0; font-size: 1.1rem;
+    .fila button { background: transparent; color: #fff; border: 0; font-size: 1.05rem;
       cursor: pointer; padding: 2px 4px; line-height: 1; }
     .tiempo { font-size: .8rem; color: #cdd; min-width: 92px; }
     .vol { width: 90px; }
     .spacer { flex: 1; }
 
-    .info-bajo { margin-top: 10px; }
-    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; align-items: center; }
+    /* navegacion de capitulos: FUERA del reproductor */
+    .nav-caps { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+    .nav-caps button { background: #3b82f6; color: #fff; border: 0; padding: 9px 14px;
+      border-radius: 8px; cursor: pointer; font-size: .9rem; }
+    .nav-caps button:disabled { background: #2a2a33; color: #777; cursor: default; }
+
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; align-items: center; }
     .chip { background: #1d1d24; padding: 4px 10px; border-radius: 8px; font-size: .8rem; }
     select { background: #1d1d24; color: #eee; border: 1px solid #333; border-radius: 8px; padding: 6px; }
-    .acciones { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .acciones button { background: #2a2a33; color: #fff; border: 0; padding: 8px 12px;
-      border-radius: 8px; cursor: pointer; font-size: .85rem; }
     #estado { font-size: .8rem; color: #9aa; min-height: 1.1em; margin-top: 6px; }
     .aviso { font-size: .8rem; color: #c9a227; }
   </style>
@@ -60,14 +60,13 @@
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
         allowfullscreen referrerpolicy="origin"></iframe>
 
-      <!-- capa propia: tapa el iframe y trae los controles -->
       <div class="overlay" id="overlay">
         <div class="controls" id="controls">
           <input type="range" id="prog" class="barra" min="0" max="100" value="0" step="0.1" />
           <div class="fila">
             <button id="b-play" title="Reproducir/Pausar">▶</button>
-            <button id="b-prev" title="Capítulo anterior">⏮</button>
-            <button id="b-next" title="Capítulo siguiente">⏭</button>
+            <button id="b-back10" title="Atrasar 10s">⏪ 10</button>
+            <button id="b-fwd10" title="Adelantar 10s">10 ⏩</button>
             <button id="b-mute" title="Silenciar">🔊</button>
             <input type="range" id="vol" class="vol barra" min="0" max="1" value="1" step="0.05" />
             <span class="tiempo" id="tiempo">0:00 / 0:00</span>
@@ -78,16 +77,21 @@
       </div>
     </div>
 
-    <div class="info-bajo">
-      <p id="cap" style="margin:.3em 0">—</p>
-      <div class="chips">
-        <span class="chip" id="chip-idioma">—</span>
-        <label class="chip">Servidor: <select id="sel-servidor"></select></label>
-        <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente</label>
-      </div>
-      <p id="estado"></p>
-      <p class="aviso" id="aviso"></p>
+    <!-- navegacion de capitulos, FUERA del reproductor -->
+    <div class="nav-caps">
+      <button id="b-prev">⏮ Capítulo anterior</button>
+      <span class="chip" id="cap">—</span>
+      <button id="b-next">Capítulo siguiente ⏭</button>
     </div>
+
+    <div class="chips">
+      <label class="chip">Serie: <select id="sel-serie"></select></label>
+      <span class="chip" id="chip-idioma">—</span>
+      <label class="chip">Servidor: <select id="sel-servidor"></select></label>
+      <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente</label>
+    </div>
+    <p id="estado"></p>
+    <p class="aviso" id="aviso"></p>
   </main>
 
   <script src="data.js"></script>
@@ -95,8 +99,9 @@
     const $ = (s) => document.querySelector(s);
     const iframe = $("#player"), box = $("#box");
 
-    let capitulos = [], idxCap = 0, idxFuente = 0, userscriptActivo = false;
-    let dur = 0, seekeando = false;
+    let series = [];          // [{titulo, capitulos:[...]}]
+    let idxSerie = 0, idxCap = 0, idxFuente = 0;
+    let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false;
 
     const SERVIDORES_SOPORTADOS = ["STREAMWISH"];
     function fuenteInicial(cap) {
@@ -105,26 +110,32 @@
     }
     function estado(m) { $("#estado").textContent = m; }
     function fmt(s) { s = Math.max(0, Math.floor(s || 0)); const m = Math.floor(s / 60); const x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
+    function cmd(c, value) { try { iframe.contentWindow.postMessage({ canal: "canal-cmd", cmd: c, value }, "*"); } catch (e) {} }
 
-    // ---- comandos al iframe ----
-    function cmd(c, value) {
-      try { iframe.contentWindow.postMessage({ canal: "canal-cmd", cmd: c, value }, "*"); } catch (e) {}
-    }
-
-    // ---- datos ----
-    function cargar(data) {
-      const serie = data.serie || {}; const caps = [];
-      (data.temporadas || []).forEach((t) => (t.capitulos || []).forEach((c) => {
-        const fuentes = (c.fuentes || []).filter((f) => (f.idioma || "").toUpperCase() === "LAT");
-        if (fuentes.length) caps.push({ serie: serie.titulo || "", temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes });
-      }));
-      caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
-      return caps;
+    // ---- normalizar datos: soporta multi-serie {series:[...]} o serie unica ----
+    function normalizar(data) {
+      const lista = data.series ? data.series : [data];
+      return lista.map((s) => {
+        const serie = s.serie || {};
+        const caps = [];
+        (s.temporadas || []).forEach((t) => (t.capitulos || []).forEach((c) => {
+          const fuentes = (c.fuentes || []).filter((f) => (f.idioma || "").toUpperCase() === "LAT");
+          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes });
+        }));
+        caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
+        return { titulo: serie.titulo || "Serie", caps };
+      }).filter((s) => s.caps.length);
     }
     async function obtenerDatos() {
       try { const r = await fetch("data.json", { cache: "no-store" }); if (r.ok) return await r.json(); } catch (e) {}
       if (window.CANAL_DATA) return window.CANAL_DATA;
       throw new Error("no se encontraron datos");
+    }
+
+    function pintarSelectSeries() {
+      const sel = $("#sel-serie"); sel.innerHTML = "";
+      series.forEach((s, i) => { const o = document.createElement("option"); o.value = i; o.textContent = s.titulo; sel.appendChild(o); });
+      sel.value = idxSerie;
     }
     function pintarServidores(cap) {
       const sel = $("#sel-servidor"); sel.innerHTML = "";
@@ -133,38 +144,40 @@
     }
 
     function reproducir() {
-      const cap = capitulos[idxCap]; if (!cap) return;
+      const serie = series[idxSerie]; if (!serie) return;
+      const cap = serie.caps[idxCap]; if (!cap) return;
       const fuente = cap.fuentes[idxFuente];
-      $("#serie").textContent = cap.serie || "Canal TV";
-      $("#cap").textContent = `${cap.titulo}  ·  T${cap.temporada} E${cap.capitulo}`;
+      $("#serie").textContent = serie.titulo;
+      $("#cap").textContent = `T${cap.temporada} · E${cap.capitulo}`;
       $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
-      $("#contador").textContent = `Cap ${idxCap + 1}/${capitulos.length}`;
+      $("#contador").textContent = `Cap ${idxCap + 1}/${serie.caps.length}`;
+      $("#b-prev").disabled = idxCap === 0;
+      $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
-      userscriptActivo = false; dur = 0; setPlayIcon(false);
+      userscriptActivo = false; dur = 0; lastT = 0; setPlayIcon(false);
       iframe.src = fuente.embed_url;
       estado("Cargando " + fuente.servidor + "…");
       setTimeout(() => {
         $("#aviso").textContent = userscriptActivo ? "" :
-          "⚠ No detecté el userscript en este servidor (sin él hay publicidad y no andan los controles). Instalá/actualizá el userscript o probá otro servidor.";
+          "⚠ No detecté el userscript en este servidor (sin él hay publicidad y no andan los controles). Actualizá el userscript o probá otro servidor.";
       }, 4500);
     }
     function irA(delta) {
+      const serie = series[idxSerie];
       const n = idxCap + delta;
-      if (n < 0 || n >= capitulos.length) { estado("No hay más capítulos en esa dirección."); return; }
-      idxCap = n; idxFuente = fuenteInicial(capitulos[n]); reproducir();
+      if (n < 0 || n >= serie.caps.length) return;
+      idxCap = n; idxFuente = fuenteInicial(serie.caps[n]); reproducir();
     }
 
     // ---- estado del userscript ----
-    let playing = false;
     function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "⏸" : "▶"; }
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (d.canal !== "streamwish") return;
       if (d.tipo === "listo" || d.tipo === "play") { userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (userscript activo)."); }
       if (d.tipo === "estado") {
-        userscriptActivo = true;
-        setPlayIcon(!!d.playing);
-        dur = d.dur || dur;
-        if (!seekeando && dur) { $("#prog").value = (d.t / dur) * 100; }
+        userscriptActivo = true; setPlayIcon(!!d.playing);
+        dur = d.dur || dur; lastT = d.t || 0;
+        if (!seekeando && dur) $("#prog").value = (d.t / dur) * 100;
         $("#tiempo").textContent = fmt(d.t) + " / " + fmt(dur);
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
@@ -172,11 +185,11 @@
       if (d.tipo === "ended" || d.tipo === "casi-fin") { if ($("#auto").checked) { estado("Capítulo terminado, siguiente…"); irA(1); } }
     });
 
-    // ---- controles propios ----
+    // ---- controles dentro del reproductor ----
     $("#overlay").addEventListener("click", (e) => { if (e.target.id === "overlay") cmd("toggle"); });
     $("#b-play").addEventListener("click", (e) => { e.stopPropagation(); cmd("toggle"); });
-    $("#b-prev").addEventListener("click", (e) => { e.stopPropagation(); irA(-1); });
-    $("#b-next").addEventListener("click", (e) => { e.stopPropagation(); irA(1); });
+    $("#b-back10").addEventListener("click", (e) => { e.stopPropagation(); cmd("seek", Math.max(0, lastT - 10)); });
+    $("#b-fwd10").addEventListener("click", (e) => { e.stopPropagation(); cmd("seek", (dur ? Math.min(dur - 1, lastT + 10) : lastT + 10)); });
     $("#b-mute").addEventListener("click", (e) => { e.stopPropagation(); cmd("mute"); });
     $("#vol").addEventListener("input", (e) => { e.stopPropagation(); cmd("volume", parseFloat(e.target.value)); });
     $("#prog").addEventListener("mousedown", () => { seekeando = true; });
@@ -186,6 +199,12 @@
       if (!document.fullscreenElement) box.requestFullscreen && box.requestFullscreen();
       else document.exitFullscreen && document.exitFullscreen();
     });
+
+    // ---- navegacion (fuera del reproductor) ----
+    $("#b-prev").addEventListener("click", () => irA(-1));
+    $("#b-next").addEventListener("click", () => irA(1));
+    $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; reproducir(); });
+    $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; idxFuente = fuenteInicial(series[idxSerie].caps[0]); reproducir(); });
 
     // ---- mostrar/ocultar controles con el mouse ----
     let tOcultar;
@@ -200,9 +219,10 @@
 
     (async function init() {
       try {
-        capitulos = cargar(await obtenerDatos());
-        if (!capitulos.length) { estado("El JSON no tiene fuentes en latino."); return; }
-        idxFuente = fuenteInicial(capitulos[idxCap]);
+        series = normalizar(await obtenerDatos());
+        if (!series.length) { estado("No hay series con fuentes en latino."); return; }
+        pintarSelectSeries();
+        idxFuente = fuenteInicial(series[idxSerie].caps[idxCap]);
         reproducir();
       } catch (e) { estado("No se pudieron cargar los datos. " + e.message); }
     })();

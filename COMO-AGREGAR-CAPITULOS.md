@@ -82,16 +82,42 @@ Pegar cada capítulo dentro de `temporadas[].capitulos[]` con esta forma:
 
 Mantener `capitulos` ordenado por `numero`.
 
-## Paso 4 — sincronizar el canal
+## Formato multi-serie (canal-tv/data.json)
 
-Copiar el JSON a `canal-tv/data.json` y regenerar `canal-tv/data.js`:
+El canal ahora soporta **varias series**. La estructura es:
 
-```js
-// data.js = el JSON envuelto:
-window.CANAL_DATA = { ...el mismo objeto... };
+```json
+{
+  "series": [
+    { "serie": {"titulo":"Dr. Stone: Science Future","slug":"..."}, "temporadas": [ ... ] },
+    { "serie": {"titulo":"Otra serie","slug":"..."}, "temporadas": [ ... ] }
+  ],
+  "metadata": { ... }
+}
 ```
 
-Subir los 3 al repo de GitHub.
+Cada elemento de `series` es una serie completa (igual que el JSON viejo de una
+sola serie, pero metido dentro del array). El canal muestra un **selector de
+serie** y, al elegir, carga sus capítulos. Reproduce solo audio **LAT**.
+
+### Para AGREGAR UNA SERIE NUEVA
+1. Conseguir el slug de la serie en animeonline (el de la URL del episodio).
+2. Sacar sus capítulos con los Pasos 1–3 de arriba (cambiando `slug`).
+3. Agregar un objeto nuevo `{ "serie": {...}, "temporadas": [...] }` al array `series`.
+
+## Paso 4 — sincronizar el canal
+
+Poner el JSON multi-serie en `canal-tv/data.json` y regenerar `canal-tv/data.js`:
+
+```js
+// data.js = el JSON multi-serie envuelto:
+window.CANAL_DATA = { "series": [ ... ], "metadata": { ... } };
+```
+
+> El canal igual acepta el formato viejo (una sola serie sin `series`): lo
+> envuelve solo. Pero conviene usar siempre `series: [...]`.
+
+Subir `index.html`, `data.json` y `data.js` al repo de GitHub.
 
 ## Notas
 
