@@ -5,34 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Canal TV</title>
   <style>
-    :root { color-scheme: dark; --azul:#3b82f6; }
+    :root { color-scheme: dark; --azul:#3b82f6; --panel:#14141b; --borde:#23232e; }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: system-ui, sans-serif; background: #0b0b0f; color: #eee; }
     .app { max-width: 1040px; margin: 0 auto; padding: 16px; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand img { height: 40px; width: auto; border-radius: 6px; display: none; }
     h1 { font-size: 1.15rem; margin: 0; }
     .badge { background: #1d1d24; padding: 5px 11px; border-radius: 999px; font-size: .8rem; }
     .top-acciones { display: flex; gap: 8px; align-items: center; }
-    .btn-volver { background: #23232e; color: #cdd; border: 0; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: .85rem; display: none; }
-    .badge.link { color: #8ab4ff; text-decoration: none; cursor: pointer; }
+    .btn-volver { background: #23232e; color: #cdd; border: 0; padding: 7px 13px; border-radius: 9px; cursor: pointer; font-size: .85rem; display: none; }
+    .btn-volver:hover { background: #2e2e3c; }
+    .badge.link { color: #8ab4ff; cursor: pointer; border: 0; }
     .badge.link:hover { background: #26303f; }
     .badge.aviso-ext { background: #5a3a00; color: #ffd27a; }
     .oculto { display: none !important; }
 
-    /* ---- selección de series (tarjetas) ---- */
     .series-view h2 { font-size: 1rem; color: #aab; font-weight: 600; margin: 10px 2px 16px; }
-    .series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
-    .serie-card { background: #14141b; border: 1px solid #23232e; border-radius: 14px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+    .series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .serie-card { background: var(--panel); border: 1px solid var(--borde); border-radius: 14px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
     .serie-card:hover { transform: translateY(-4px); border-color: var(--azul); box-shadow: 0 10px 24px rgba(0,0,0,.45); }
-    .serie-card .poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #000; display: block; }
+    .poster-wrap { position: relative; aspect-ratio: 2/3; background: #1a1a22; }
+    .poster-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .play-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; color: #fff; background: rgba(0,0,0,.35); opacity: 0; transition: opacity .15s; }
+    .serie-card:hover .play-badge { opacity: 1; }
     .serie-card .cuerpo { padding: 11px 13px 14px; display: flex; flex-direction: column; gap: 6px; }
-    .serie-card h3 { margin: 0; font-size: 1.02rem; }
+    .serie-card h3 { margin: 0; font-size: 1.02rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .serie-card .meta { font-size: .72rem; color: #7e8aa0; }
-    .serie-card p { margin: 0; font-size: .8rem; color: #9aa; line-height: 1.38; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .serie-card p { margin: 0; font-size: .8rem; color: #9aa; line-height: 1.38; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
-    /* ---- reproductor ---- */
     .player-box { position: relative; aspect-ratio: 16/9; margin-top: 4px; background: #000; border-radius: 10px; overflow: hidden; }
     .player-box iframe { width: 100%; height: 100%; border: 0; display: block; }
     .overlay { position: absolute; inset: 0; cursor: pointer; }
@@ -50,14 +52,51 @@
     .tiempo { font-size: .8rem; color: #cdd; min-width: 92px; }
     .vol { width: 90px; }
     .spacer { flex: 1; }
-    .nav-caps { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
-    .nav-caps button { background: var(--azul); color: #fff; border: 0; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .9rem; }
-    .nav-caps button:disabled { background: #2a2a33; color: #777; cursor: default; }
-    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; align-items: center; }
-    .chip { background: #1d1d24; padding: 5px 11px; border-radius: 8px; font-size: .8rem; }
-    select { background: #1d1d24; color: #eee; border: 1px solid #333; border-radius: 8px; padding: 6px; }
-    #estado { font-size: .8rem; color: #9aa; min-height: 1.1em; margin-top: 6px; }
-    .aviso { font-size: .8rem; color: #c9a227; }
+
+    /* barra de navegacion de episodios */
+    .nav-ep { display: flex; gap: 10px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+    .nav-ep .btn { background: var(--azul); color: #fff; border: 0; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-size: .92rem; font-weight: 600; }
+    .nav-ep .btn:disabled { background: #2a2a33; color: #777; cursor: default; }
+    .ep-selector { flex: 1; min-width: 200px; background: var(--panel); border: 1px solid var(--borde); color: #eee; border-radius: 10px; padding: 10px 14px; cursor: pointer; text-align: left; font-size: .92rem; display: flex; justify-content: space-between; align-items: center; }
+    .ep-selector:hover { border-color: var(--azul); }
+    .auto-label { display: flex; align-items: center; gap: 7px; font-size: .9rem; color: #cdd; background: var(--panel); border: 1px solid var(--borde); padding: 9px 14px; border-radius: 10px; cursor: pointer; }
+
+    /* info del capitulo */
+    .info-cap { margin-top: 16px; background: var(--panel); border: 1px solid var(--borde); border-radius: 12px; padding: 14px 16px; }
+    .info-cap h2 { margin: 0 0 4px; font-size: 1.05rem; }
+    .info-cap .sub { color: #7e8aa0; font-size: .8rem; margin: 0 0 8px; }
+    .info-cap p { margin: 0; color: #b8c0cc; font-size: .9rem; line-height: 1.5; }
+
+    /* opciones avanzadas */
+    .avanzado { margin-top: 12px; border: 1px solid var(--borde); border-radius: 10px; background: var(--panel); }
+    .avanzado summary { cursor: pointer; padding: 10px 14px; font-size: .85rem; color: #9aa; user-select: none; }
+    .avanzado .cont { padding: 0 14px 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    select { background: #1d1d24; color: #eee; border: 1px solid #333; border-radius: 8px; padding: 7px; }
+    .chip { background: #1d1d24; padding: 7px 11px; border-radius: 8px; font-size: .82rem; cursor: pointer; border: 1px solid var(--borde); color: #cdd; }
+    #estado { font-size: .8rem; color: #9aa; min-height: 1.1em; margin-top: 10px; }
+    .aviso { font-size: .82rem; color: #c9a227; }
+
+    /* modales */
+    .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.72); display: none; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+    .modal-bg.show { display: flex; }
+    .modal { background: var(--panel); border: 1px solid #2a2a38; border-radius: 14px; max-width: 520px; width: 100%; padding: 22px 24px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+    .modal h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    .modal .sub { color: #9aa; font-size: .85rem; margin: 0 0 16px; }
+    .modal ol { margin: 0 0 16px; padding-left: 20px; line-height: 1.6; font-size: .9rem; }
+    .modal code { background: #23232e; padding: 1px 6px; border-radius: 5px; font-size: .85em; }
+    .modal .acciones { display: flex; gap: 10px; flex-wrap: wrap; }
+    .modal .btn-dl { background: var(--azul); color: #fff; text-decoration: none; padding: 10px 16px; border-radius: 9px; font-weight: 600; font-size: .9rem; }
+    .modal .btn-cerrar { background: #2a2a38; color: #cdd; border: 0; padding: 10px 16px; border-radius: 9px; cursor: pointer; font-size: .9rem; }
+    .modal .nota { font-size: .78rem; color: #7e8aa0; margin: 14px 0 0; }
+    /* picker de episodios */
+    .ep-modal { max-width: 560px; display: flex; flex-direction: column; max-height: 80vh; }
+    #ep-search { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--borde); background: #0f0f15; color: #eee; font-size: .95rem; margin-bottom: 12px; }
+    .ep-lista { overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+    .ep-item { padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: .9rem; color: #dfe5ee; display: flex; gap: 10px; align-items: baseline; }
+    .ep-item:hover { background: #23232e; }
+    .ep-item.actual { background: #1f2b40; color: #cfe0ff; }
+    .ep-item .n { color: #7e8aa0; min-width: 64px; font-size: .8rem; }
+    .ep-vacio { color: #7e8aa0; padding: 12px; font-size: .9rem; }
   </style>
 </head>
 <body>
@@ -69,18 +108,15 @@
         <h1 id="serie">Canal TV</h1>
       </div>
       <div class="top-acciones">
-        <a id="dl-ext" class="badge link oculto" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer">&#11015; Instalar extensión FedePlayer</a>
-        <span id="contador" class="badge oculto">Cargando&#8230;</span>
+        <button id="dl-ext" class="badge link oculto" title="Cómo instalar FedePlayer">&#11015; Instalar extensión</button>
       </div>
     </header>
 
-    <!-- VISTA: selección de series -->
     <section id="series-view" class="series-view">
       <h2>Elegí una serie</h2>
       <div id="series-grid" class="series-grid"></div>
     </section>
 
-    <!-- VISTA: reproductor -->
     <section id="player-view" class="oculto">
       <div class="player-box" id="box">
         <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe>
@@ -102,20 +138,59 @@
           </div>
         </div>
       </div>
-      <div class="nav-caps">
-        <button id="b-prev">&#9198; Anterior</button>
-        <label class="chip">Episodio: <select id="sel-cap"></select></label>
-        <button id="b-next">Siguiente &#9197;</button>
+
+      <div class="nav-ep">
+        <button id="b-prev" class="btn">&#9198; Anterior</button>
+        <button id="ep-selector" class="ep-selector"><span id="ep-actual">Episodio</span><span>&#9662;</span></button>
+        <button id="b-next" class="btn">Siguiente &#9197;</button>
+        <label class="auto-label"><input type="checkbox" id="auto" checked /> Reproducción automática</label>
       </div>
-      <div class="chips">
-        <span class="chip" id="chip-idioma">&mdash;</span>
-        <label class="chip">Servidor: <select id="sel-servidor"></select></label>
-        <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente</label>
-        <button id="b-reporte" class="chip" style="cursor:pointer" title="Descargar lista de links rotos y capitulos sin servidor">&#129658; Reporte de fallos</button>
+
+      <div class="info-cap">
+        <h2 id="cap-titulo">&mdash;</h2>
+        <p class="sub" id="cap-sub"></p>
+        <p id="cap-desc"></p>
       </div>
+
+      <details class="avanzado">
+        <summary>&#9881; Opciones avanzadas</summary>
+        <div class="cont">
+          <label>Servidor: <select id="sel-servidor"></select></label>
+          <button id="b-reporte" class="chip" title="Descargar lista de links que no funcionan">&#129658; Reportar fallas</button>
+        </div>
+      </details>
+
       <p id="estado"></p>
       <p class="aviso" id="aviso"></p>
     </section>
+
+    <!-- modal instalar -->
+    <div class="modal-bg" id="modal-ext">
+      <div class="modal">
+        <h2>Instalar FedePlayer</h2>
+        <p class="sub">Es una extensión de Chrome gratis que saca la publicidad y hace que el video arranque solo. Chrome no permite instalarla desde la web, así que se hace una sola vez en 5 pasos:</p>
+        <ol>
+          <li>Descargá y <b>descomprimí</b> el archivo (botón de abajo).</li>
+          <li>Abrí <code>chrome://extensions</code> (copialo en la barra de direcciones).</li>
+          <li>Activá el <b>Modo de desarrollador</b> (arriba a la derecha).</li>
+          <li>Clic en <b>Cargar descomprimida</b> y elegí la carpeta <code>fedeplayer</code>.</li>
+          <li>Volvé acá y <b>recargá</b> la página. ¡Listo!</li>
+        </ol>
+        <div class="acciones">
+          <a class="btn-dl" href="fedeplayer.zip" download>&#11015; Descargar FedePlayer (.zip)</a>
+          <button class="btn-cerrar" id="modal-cerrar">Cerrar</button>
+        </div>
+        <p class="nota">Para actualizarla: descargá la nueva versión y en <code>chrome://extensions</code> tocá recargar (&#8635;).</p>
+      </div>
+    </div>
+
+    <!-- modal buscador de episodios -->
+    <div class="modal-bg" id="ep-modal">
+      <div class="modal ep-modal">
+        <input id="ep-search" type="text" placeholder="Buscar episodio por número o nombre…" autocomplete="off" />
+        <div class="ep-lista" id="ep-lista"></div>
+      </div>
+    </div>
   </main>
 
   <script src="data.js"></script>
@@ -133,14 +208,13 @@
     const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "DOOD", "STREAMTAPE"];
     const CANALES = ["streamwish", "earnvids", "uqload", "dood", "netu", "streamtape"];
     const SERVIDORES_NO_USAR = ["NETU"];
-    const FP_VERSION_OK = "1.3.0";
+    const FP_VERSION_OK = "1.3.1";
 
     function evaluarExtension(version) {
       const btn = $("#dl-ext");
       if (version === FP_VERSION_OK) { btn.classList.add("oculto"); btn.classList.remove("aviso-ext"); }
-      else { btn.classList.remove("oculto"); if (version) { btn.classList.add("aviso-ext"); btn.textContent = "⬇ Actualizar extensión FedePlayer (v" + version + " → " + FP_VERSION_OK + ")"; } else { btn.textContent = "⬇ Instalar extensión FedePlayer"; } }
+      else { btn.classList.remove("oculto"); if (version) { btn.classList.add("aviso-ext"); btn.textContent = "⬇ Actualizar extensión"; } else { btn.textContent = "⬇ Instalar extensión"; } }
     }
-    setTimeout(() => { if (!window.__fpVisto) evaluarExtension(null); }, 8000);
 
     let rotos = {};
     try { rotos = JSON.parse(localStorage.getItem("canaltv_rotos") || "{}"); } catch (e) {}
@@ -165,15 +239,16 @@
     function cargarCapitulo() { const cap = series[idxSerie].caps[idxCap]; ordenActual = ordenFuentes(cap); posOrden = 0; idxFuente = ordenActual[0]; reproducir(); }
     function probarSiguienteFuente(motivo) {
       if (reproduciendoOK) return;
-      if (reintentos < MAX_REINTENTOS) { reintentos++; estado("Recargando servidor (intento " + reintentos + ", " + (motivo || "") + ")…"); reproducir(true); return; }
+      if (reintentos < MAX_REINTENTOS) { reintentos++; estado("Reintentando…"); reproducir(true); return; }
       marcarRoto(series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor, motivo);
-      if (posOrden + 1 < ordenActual.length) { posOrden++; idxFuente = ordenActual[posOrden]; const nom = series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor; estado("Servidor falló (" + (motivo || "") + "). Probando " + nom + "…"); reproducir(); }
-      else { $("#aviso").textContent = "⚠ Ningún servidor respondió. Si OTROS capítulos andan, es saturación del host (probá luego). Si NINGUNO anda, recargá la extensión FedePlayer."; estado("Ningún servidor del capítulo respondió."); }
+      if (posOrden + 1 < ordenActual.length) { posOrden++; idxFuente = ordenActual[posOrden]; estado("Probando otra fuente…"); reproducir(); }
+      else { estado("No se pudo cargar este episodio. Probá otro o más tarde."); }
     }
 
     function estado(m) { $("#estado").textContent = m; }
     function fmt(s) { s = Math.max(0, Math.floor(s || 0)); const m = Math.floor(s / 60); const x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
     function cmd(c, value) { try { iframe.contentWindow.postMessage({ canal: "canal-cmd", cmd: c, value }, "*"); } catch (e) {} }
+    function esTituloGenerico(t) { return !t || /cap\s*\d+\s*$/i.test(t.trim()); }
 
     function normalizar(data) {
       const lista = data.series ? data.series : [data];
@@ -182,7 +257,7 @@
         const caps = [];
         (s.temporadas || []).forEach((t) => (t.capitulos || []).forEach((c) => {
           const fuentes = (c.fuentes || []).filter((f) => (f.idioma || "").toUpperCase() === "LAT");
-          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes, inicio_seg: c.inicio_seg || 0, fin_seg: (c.fin_seg == null ? null : c.fin_seg) });
+          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", descripcion: c.descripcion || "", fuentes, inicio_seg: c.inicio_seg || 0, fin_seg: (c.fin_seg == null ? null : c.fin_seg) });
         }));
         caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
         return { titulo: serie.titulo || "Serie", imagen: serie.imagen || "", descripcion: serie.descripcion || "", caps };
@@ -194,14 +269,13 @@
       throw new Error("no se encontraron datos");
     }
 
-    // ---- vista de series (tarjetas) ----
     function pintarSeriesCards() {
       const g = $("#series-grid"); g.innerHTML = "";
       series.forEach((s, i) => {
         const card = document.createElement("div");
         card.className = "serie-card";
         card.innerHTML =
-          '<img class="poster" alt="" src="' + (s.imagen || "") + '" onerror="this.style.background=\'#1a1a22\';this.removeAttribute(\'src\')" />' +
+          '<div class="poster-wrap"><img alt="" src="' + (s.imagen || "") + '" onerror="this.style.display=\'none\'" /><div class="play-badge">&#9654;</div></div>' +
           '<div class="cuerpo"><h3>' + s.titulo + '</h3>' +
           '<div class="meta">' + s.caps.length + ' capítulos · Latino</div>' +
           '<p>' + (s.descripcion || "") + '</p></div>';
@@ -216,24 +290,48 @@
       $("#series-view").classList.add("oculto");
       $("#player-view").classList.remove("oculto");
       $("#b-volver").style.display = "";
-      $("#contador").classList.remove("oculto");
-      pintarCaps(series[i]);
+      window.__fpVisto = false; $("#dl-ext").classList.add("oculto");
+      setTimeout(() => { if (!window.__fpVisto) evaluarExtension(null); }, 9000);
       cargarCapitulo();
     }
     function volverASeries() {
-      iframe.src = "about:blank"; playing = false;
-      clearTimeout(fallbackTimer);
+      iframe.src = "about:blank"; playing = false; clearTimeout(fallbackTimer);
       $("#player-view").classList.add("oculto");
       $("#series-view").classList.remove("oculto");
       $("#b-volver").style.display = "none";
-      $("#contador").classList.add("oculto");
+      $("#dl-ext").classList.add("oculto");
       $("#serie-img").style.display = "none";
       $("#serie").textContent = "Canal TV";
     }
 
-    function pintarCaps(serie) { const sel = $("#sel-cap"); sel.innerHTML = ""; serie.caps.forEach((c, i) => { const o = document.createElement("option"); o.value = i; o.textContent = "T" + c.temporada + " E" + c.capitulo + (c.titulo ? " · " + c.titulo : ""); sel.appendChild(o); }); }
     function pintarServidores(cap) { const sel = $("#sel-servidor"); sel.innerHTML = ""; cap.fuentes.forEach((f, i) => { const o = document.createElement("option"); o.value = i; o.textContent = f.servidor; sel.appendChild(o); }); sel.value = idxFuente; }
     function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "❚❚" : "▶"; }
+
+    // ---- buscador de episodios ----
+    function pintarEpLista(filtro) {
+      const cont = $("#ep-lista"); cont.innerHTML = "";
+      const f = (filtro || "").trim().toLowerCase();
+      const caps = series[idxSerie].caps;
+      let n = 0;
+      caps.forEach((c, i) => {
+        const txt = ("e" + c.capitulo + " " + (c.titulo || "")).toLowerCase();
+        if (f && txt.indexOf(f) === -1 && String(c.capitulo).indexOf(f) === -1) return;
+        const it = document.createElement("div");
+        it.className = "ep-item" + (i === idxCap ? " actual" : "");
+        it.innerHTML = '<span class="n">T' + c.temporada + ' · E' + c.capitulo + '</span><span>' + (esTituloGenerico(c.titulo) ? "Episodio " + c.capitulo : c.titulo) + '</span>';
+        it.addEventListener("click", () => { idxCap = i; $("#ep-modal").classList.remove("show"); cargarCapitulo(); });
+        cont.appendChild(it); n++;
+      });
+      if (!n) cont.innerHTML = '<div class="ep-vacio">No se encontraron episodios.</div>';
+    }
+    function abrirEpPicker() {
+      $("#ep-search").value = "";
+      pintarEpLista("");
+      $("#ep-modal").classList.add("show");
+      setTimeout(() => $("#ep-search").focus(), 50);
+      // llevar el actual a la vista
+      const act = $("#ep-lista .actual"); if (act) act.scrollIntoView({ block: "center" });
+    }
 
     function reproducir(recarga) {
       const serie = series[idxSerie]; if (!serie) return;
@@ -243,10 +341,12 @@
       $("#serie").textContent = serie.titulo;
       const simg = $("#serie-img");
       if (serie.imagen) { simg.src = serie.imagen; simg.style.display = ""; } else { simg.style.display = "none"; }
-      $("#titulo-top").textContent = serie.titulo + " · T" + cap.temporada + " E" + cap.capitulo + (cap.titulo ? " · " + cap.titulo : "");
-      $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
-      $("#contador").textContent = "Cap " + (idxCap + 1) + "/" + serie.caps.length;
-      $("#sel-cap").value = idxCap;
+      const nombreEp = esTituloGenerico(cap.titulo) ? "Episodio " + cap.capitulo : cap.titulo;
+      $("#titulo-top").textContent = serie.titulo + " · " + nombreEp;
+      $("#ep-actual").textContent = "T" + cap.temporada + " · Episodio " + cap.capitulo;
+      $("#cap-titulo").textContent = nombreEp;
+      $("#cap-sub").textContent = serie.titulo + " · Temporada " + cap.temporada + " · Episodio " + cap.capitulo + " de " + serie.caps.length;
+      $("#cap-desc").textContent = cap.descripcion || serie.descripcion || "";
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
@@ -259,7 +359,7 @@
       dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
       $("#aviso").textContent = "";
       iframe.src = fuente.embed_url + (recarga ? (fuente.embed_url.includes("?") ? "&" : "?") + "r=" + Date.now() : "");
-      estado("Cargando " + fuente.servidor + (recarga ? " (reintento)…" : "…"));
+      estado("Cargando video…");
       clearTimeout(fallbackTimer);
       fallbackTimer = setTimeout(() => probarSiguienteFuente("sin respuesta"), 9000);
     }
@@ -270,10 +370,10 @@
       if (d.version) { window.__fpVisto = true; evaluarExtension(d.version); }
       if (d.tipo === "fp") return;
       if (d.tipo === "error") { reintentos = MAX_REINTENTOS; probarSiguienteFuente(d.motivo || "error"); return; }
-      if (d.tipo === "listo" || d.tipo === "play") { $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo)."); avanzando = false; }
+      if (d.tipo === "listo" || d.tipo === "play") { $("#aviso").textContent = ""; estado(""); avanzando = false; }
       if (d.tipo === "estado") {
         setPlayIcon(!!d.playing);
-        if (d.playing && (d.t > 0 || d.dur > 0)) { reproduciendoOK = true; clearTimeout(fallbackTimer); marcarOk(series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor); }
+        if (d.playing && (d.t > 0 || d.dur > 0)) { reproduciendoOK = true; clearTimeout(fallbackTimer); marcarOk(series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor); estado(""); }
         dur = d.dur || dur; lastT = d.t || 0;
         if (!seekeando && dur) $("#prog").value = (d.t / dur) * 100;
         $("#tiempo").textContent = fmt(d.t) + " / " + fmt(dur);
@@ -283,9 +383,9 @@
         if (!inicioAplicado && inicioSeg > 0 && dur > 0) { if (d.t >= inicioSeg - 3) inicioAplicado = true; else if (Date.now() < inicioDeadline) cmd("seek", inicioSeg); else inicioAplicado = true; }
         let finReal = null;
         if (finSeg != null) finReal = finSeg < 0 ? (dur > 0 ? dur + finSeg : null) : finSeg;
-        if (finReal != null) { if (d.t < finReal - 2) finHabilitado = true; if (finHabilitado && d.t >= finReal) { $("#next-banner").classList.add("mostrar"); if ($("#auto").checked && !avanzando) { avanzando = true; estado("Pasando al siguiente capítulo…"); irA(1); } } }
+        if (finReal != null) { if (d.t < finReal - 2) finHabilitado = true; if (finHabilitado && d.t >= finReal) { $("#next-banner").classList.add("mostrar"); if ($("#auto").checked && !avanzando) { avanzando = true; irA(1); } } }
       }
-      if ((d.tipo === "ended" || d.tipo === "casi-fin") && finSeg == null) { if ($("#auto").checked && !avanzando) { avanzando = true; estado("Capítulo terminado, siguiente…"); irA(1); } }
+      if ((d.tipo === "ended" || d.tipo === "casi-fin") && finSeg == null) { if ($("#auto").checked && !avanzando) { avanzando = true; irA(1); } }
     });
 
     $("#b-volver").addEventListener("click", volverASeries);
@@ -305,13 +405,18 @@
       const rep = { generado: new Date().toISOString(), totalLinksRotos: Object.keys(rotos).length, capitulosSinServidor: sinServidor, detalleRotos: Object.values(rotos) };
       const blob = new Blob([JSON.stringify(rep, null, 2)], { type: "application/json" });
       const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "reporte-fallos.json"; a.click();
-      estado("Reporte descargado: " + Object.keys(rotos).length + " links rotos, " + sinServidor.length + " capítulos sin servidor que ande.");
+      estado("Reporte descargado.");
     }
     $("#b-reporte").addEventListener("click", generarReporte);
     $("#b-prev").addEventListener("click", () => irA(-1));
     $("#b-next").addEventListener("click", () => irA(1));
-    $("#sel-cap").addEventListener("change", (e) => { idxCap = +e.target.value; cargarCapitulo(); });
     $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; const p = ordenActual.indexOf(idxFuente); posOrden = p >= 0 ? p : 0; reproducir(); });
+    $("#ep-selector").addEventListener("click", abrirEpPicker);
+    $("#ep-search").addEventListener("input", (e) => pintarEpLista(e.target.value));
+    $("#ep-modal").addEventListener("click", (e) => { if (e.target.id === "ep-modal") $("#ep-modal").classList.remove("show"); });
+    $("#dl-ext").addEventListener("click", () => $("#modal-ext").classList.add("show"));
+    $("#modal-cerrar").addEventListener("click", () => $("#modal-ext").classList.remove("show"));
+    $("#modal-ext").addEventListener("click", (e) => { if (e.target.id === "modal-ext") $("#modal-ext").classList.remove("show"); });
 
     let tOcultar;
     function mostrarControles() { box.classList.remove("oculto-controles"); clearTimeout(tOcultar); tOcultar = setTimeout(() => { if (playing) box.classList.add("oculto-controles"); }, 3000); }
