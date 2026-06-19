@@ -141,9 +141,9 @@
     }
 
     // El orden marca la PRIORIDAD: StreamWish primero (default), luego EarnVids.
-    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "STREAMTAPE"];
-    const CANALES = ["streamwish", "earnvids", "uqload", "streamtape"]; // canales que envía FedePlayer
-    const FP_VERSION_OK = "1.2.2"; // versión esperada de la extensión FedePlayer
+    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "NETU", "STREAMTAPE"];
+    const CANALES = ["streamwish", "earnvids", "uqload", "netu", "streamtape"]; // canales que envía FedePlayer
+    const FP_VERSION_OK = "1.2.4"; // versión esperada de la extensión FedePlayer
 
     // Muestra/oculta el botón de instalar según versión detectada de FedePlayer.
     function evaluarExtension(version) {
@@ -292,7 +292,7 @@
       const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
       if (d.version) { window.__fpVisto = true; evaluarExtension(d.version); }
       if (d.tipo === "fp") return; // solo anuncio de presencia/versión
-      if (d.tipo === "error") { probarSiguienteFuente(d.motivo || "error"); return; }
+      if (d.tipo === "error") { reintentos = MAX_REINTENTOS; probarSiguienteFuente(d.motivo || "error"); return; } // video caído: saltar directo al respaldo
       if (d.tipo === "listo" || d.tipo === "play") {
         userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo).");
         avanzando = false; // el nuevo capítulo ya arrancó: rehabilita el auto-siguiente
