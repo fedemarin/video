@@ -110,7 +110,7 @@
     let series = [];          // [{titulo, capitulos:[...]}]
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
-    let inicioSeg = 0, finSeg = null, inicioAplicado = false;
+    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false;
 
     const SERVIDORES_SOPORTADOS = ["STREAMWISH"];
     function fuenteInicial(cap) {
@@ -164,7 +164,7 @@
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
-      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0);
+      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
       $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
@@ -197,17 +197,22 @@
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
 
-        // saltar al inicio configurado (una sola vez, cuando ya hay duración)
+        // saltar al inicio configurado (una sola vez): forzamos la posición,
+        // ignorando que streamwish recuerde dónde quedó (resume).
         if (!inicioAplicado && dur > 0) {
           inicioAplicado = true;
-          if (inicioSeg > 0 && d.t < inicioSeg - 1) cmd("seek", inicioSeg);
+          if (inicioSeg > 0) cmd("seek", inicioSeg);
         }
-        // fin configurado: fin_seg >= 0 es segundo absoluto; < 0 es "N seg antes del final"
+        // fin configurado: >=0 segundo absoluto; <0 = "N seg antes del final"
         let finReal = null;
         if (finSeg != null) finReal = finSeg < 0 ? (dur > 0 ? dur + finSeg : null) : finSeg;
-        if (finReal != null && d.t >= finReal) {
-          $("#next-banner").classList.add("mostrar"); // cartel "Siguiente capítulo"
-          if ($("#auto").checked && !avanzando) { avanzando = true; estado("Pasando al siguiente capítulo…"); irA(1); }
+        if (finReal != null) {
+          // solo habilitamos el corte DESPUÉS de confirmar que estamos antes del fin
+          if (d.t < finReal - 2) finHabilitado = true;
+          if (finHabilitado && d.t >= finReal) {
+            $("#next-banner").classList.add("mostrar");
+            if ($("#auto").checked && !avanzando) { avanzando = true; estado("Pasando al siguiente capítulo…"); irA(1); }
+          }
         }
       }
       // fin natural del video (si no hay fin_seg)
