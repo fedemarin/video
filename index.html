@@ -153,7 +153,7 @@
       return sup.concat(resto);
     }
 
-    let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null;
+    let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null, reintentado = false;
 
     function cargarCapitulo() {
       const cap = series[idxSerie].caps[idxCap];
@@ -163,9 +163,17 @@
       reproducir();
     }
 
-    // Cambia al siguiente servidor de respaldo del capítulo actual.
+    // Ante un fallo: primero reintenta el MISMO servidor una vez (UQLOAD y otros
+    // a veces sirven una página de anuncio en la 1ª carga y andan en la 2ª).
+    // Si vuelve a fallar, recién ahí salta al siguiente servidor.
     function probarSiguienteFuente(motivo) {
       if (reproduciendoOK) return;
+      if (!reintentado) {
+        reintentado = true;
+        estado("Recargando servidor (" + (motivo || "") + ")…");
+        reproducir(true);   // recarga el mismo, sin resetear el reintento
+        return;
+      }
       if (posOrden + 1 < ordenActual.length) {
         posOrden++;
         idxFuente = ordenActual[posOrden];
@@ -173,6 +181,7 @@
         estado("Servidor falló (" + (motivo || "") + "). Probando " + nom + "…");
         reproducir();
       } else {
+        $("#aviso").textContent = "⚠ Ningún servidor respondió. Si OTROS capítulos sí andan, es saturación/publicidad del host (probá de nuevo en un rato). Si NINGÚN capítulo anda, recargá la extensión FedePlayer.";
         estado("Ningún servidor del capítulo respondió.");
       }
     }
@@ -221,9 +230,10 @@
       sel.value = idxFuente;
     }
 
-    function reproducir() {
+    function reproducir(recarga) {
       const serie = series[idxSerie]; if (!serie) return;
       const cap = serie.caps[idxCap]; if (!cap) return;
+      if (!recarga) reintentado = false;   // carga nueva: se habilita 1 reintento
       const fuente = cap.fuentes[idxFuente];
       $("#serie").textContent = serie.titulo;
       $("#titulo-top").textContent = serie.titulo + " · T" + cap.temporada + " E" + cap.capitulo + (cap.titulo ? " · " + cap.titulo : "");
@@ -240,15 +250,13 @@
       inicioDeadline = Date.now() + 12000; // ventana para forzar el inicio
       $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
-      iframe.src = fuente.embed_url;
-      estado("Cargando " + fuente.servidor + "…");
-      setTimeout(() => {
-        if (!reproduciendoOK) $("#aviso").textContent =
-          "⚠ No detecté FedePlayer en este servidor (sin la extensión hay publicidad y no andan los controles). Instalá/recargá la extensión FedePlayer o probá otro servidor.";
-      }, 4500);
-      // failover: si el servidor no arranca en 10s, probar el siguiente.
+      $("#aviso").textContent = "";
+      // cache-bust al recargar para forzar que el host vuelva a servir el video
+      iframe.src = fuente.embed_url + (recarga ? (fuente.embed_url.includes("?") ? "&" : "?") + "r=" + Date.now() : "");
+      estado("Cargando " + fuente.servidor + (recarga ? " (reintento)…" : "…"));
+      // failover: si el servidor no arranca en 9s, reintenta / prueba el siguiente.
       clearTimeout(fallbackTimer);
-      fallbackTimer = setTimeout(() => probarSiguienteFuente("sin respuesta"), 10000);
+      fallbackTimer = setTimeout(() => probarSiguienteFuente("sin respuesta"), 9000);
     }
     function irA(delta) {
       const serie = series[idxSerie];
