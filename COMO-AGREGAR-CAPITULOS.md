@@ -72,6 +72,8 @@ Pegar cada capítulo dentro de `temporadas[].capitulos[]` con esta forma:
   "type": "tv",
   "embed_id": "49115",
   "embed_page": "https://saidochesto.top/embed.php?id=49115",
+  "inicio_seg": 0,
+  "fin_seg": null,
   "fuentes": [
     {"idioma":"LAT","idioma_nombre":"Español latino","servidor":"ZOPLAYER","host":"gupload.xyz","descripcion":"...","embed_url":"..."},
     {"idioma":"LAT","idioma_nombre":"Español latino","servidor":"EARNVIDS","host":"filelions.top","descripcion":"...","embed_url":"..."},
@@ -81,6 +83,13 @@ Pegar cada capítulo dentro de `temporadas[].capitulos[]` con esta forma:
 ```
 
 Mantener `capitulos` ordenado por `numero`.
+
+### Campos opcionales por capítulo
+- `inicio_seg`: segundo donde debe empezar la reproducción (saltea intro). 0 = desde el principio.
+- `fin_seg`: segundo donde debe pasar al siguiente capítulo (saltea outro/avances).
+  `null` = esperar al fin real del video.
+
+Ejemplo: para saltar 90s de intro y cortar a los 1320s (22 min): `"inicio_seg": 90, "fin_seg": 1320`.
 
 ## Formato multi-serie (canal-tv/data.json)
 

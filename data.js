@@ -45,7 +45,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
                   "embed_url": "https://streamwish.top/e/b3f9lrxadonr"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 31,
@@ -81,7 +83,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
                   "embed_url": "https://streamwish.top/e/4vt99qaomhn4"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 32,
@@ -117,7 +121,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
                   "embed_url": "https://streamwish.top/e/ol4755ocvjrm"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 33,
@@ -153,7 +159,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
                   "embed_url": "https://streamwish.top/e/u7jwgvjqrb7o"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 34,
@@ -189,7 +197,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
                   "embed_url": "https://streamwish.top/e/3duts4wka3f8"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 35,
@@ -229,7 +239,9 @@ window.CANAL_DATA = {
                   "resuelto_el": "2026-06-18T23:29:00Z",
                   "expira_el": "2026-06-19T11:28:57Z"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 36,
@@ -269,7 +281,9 @@ window.CANAL_DATA = {
                   "resuelto_el": "2026-06-18T23:29:00Z",
                   "expira_el": "2026-06-19T11:26:31Z"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             }
           ]
         }
@@ -320,7 +334,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/l64kg9d9bko6w9"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 2,
@@ -356,7 +372,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/dqmp4r7mtgx460"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 3,
@@ -392,7 +410,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/1vkrgokgb9p96x"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 4,
@@ -428,7 +448,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/4nj04mp0tm4lmd"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 5,
@@ -464,7 +486,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/zpm6qz1qtk1kg"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 6,
@@ -500,7 +524,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/3nwdr369u6z0km"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 7,
@@ -536,7 +562,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/7rzlgp1qs9z4rj"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 8,
@@ -572,7 +600,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/l64kgq1dcj9l0r"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 9,
@@ -608,7 +638,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/gn8p4kpxc9lq48"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             },
             {
               "numero": 10,
@@ -644,7 +676,9 @@ window.CANAL_DATA = {
                   "descripcion": "Audio Latino",
                   "embed_url": "https://mxdrop.to/e/0v7nojees1nevw"
                 }
-              ]
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             }
           ]
         }

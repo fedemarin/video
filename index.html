@@ -102,6 +102,7 @@
     let series = [];          // [{titulo, capitulos:[...]}]
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
+    let inicioSeg = 0, finSeg = null, inicioAplicado = false;
 
     const SERVIDORES_SOPORTADOS = ["STREAMWISH"];
     function fuenteInicial(cap) {
@@ -120,7 +121,8 @@
         const caps = [];
         (s.temporadas || []).forEach((t) => (t.capitulos || []).forEach((c) => {
           const fuentes = (c.fuentes || []).filter((f) => (f.idioma || "").toUpperCase() === "LAT");
-          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes });
+          if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes,
+            inicio_seg: c.inicio_seg || 0, fin_seg: (c.fin_seg == null ? null : c.fin_seg) });
         }));
         caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
         return { titulo: serie.titulo || "Serie", caps };
@@ -154,6 +156,7 @@
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
+      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0);
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
       estado("Cargando " + fuente.servidor + "…");
@@ -173,7 +176,10 @@
     function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "⏸" : "▶"; }
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (d.canal !== "streamwish") return;
-      if (d.tipo === "listo" || d.tipo === "play") { userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (userscript activo)."); }
+      if (d.tipo === "listo" || d.tipo === "play") {
+        userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (userscript activo).");
+        avanzando = false; // el nuevo capítulo ya arrancó: rehabilita el auto-siguiente
+      }
       if (d.tipo === "estado") {
         userscriptActivo = true; setPlayIcon(!!d.playing);
         dur = d.dur || dur; lastT = d.t || 0;
@@ -181,8 +187,19 @@
         $("#tiempo").textContent = fmt(d.t) + " / " + fmt(dur);
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
+
+        // saltar al inicio configurado (una sola vez, cuando ya hay duración)
+        if (!inicioAplicado && dur > 0) {
+          inicioAplicado = true;
+          if (inicioSeg > 0 && d.t < inicioSeg - 1) cmd("seek", inicioSeg);
+        }
+        // pasar al siguiente en el segundo configurado (fin_seg)
+        if (finSeg != null && d.t >= finSeg && $("#auto").checked && !avanzando) {
+          avanzando = true; estado("Fin configurado, siguiente…"); irA(1);
+        }
       }
-      if (d.tipo === "ended" || d.tipo === "casi-fin") {
+      // fin natural del video (si no hay fin_seg)
+      if ((d.tipo === "ended" || d.tipo === "casi-fin") && finSeg == null) {
         if ($("#auto").checked && !avanzando) { avanzando = true; estado("Capítulo terminado, siguiente…"); irA(1); }
       }
     });
