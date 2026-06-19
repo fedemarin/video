@@ -86,10 +86,16 @@ Mantener `capitulos` ordenado por `numero`.
 
 ### Campos opcionales por capítulo
 - `inicio_seg`: segundo donde debe empezar la reproducción (saltea intro). 0 = desde el principio.
-- `fin_seg`: segundo donde debe pasar al siguiente capítulo (saltea outro/avances).
-  `null` = esperar al fin real del video.
+- `fin_seg`: cuándo pasar al siguiente capítulo (saltea outro/avances).
+  - `null` = esperar al fin real del video.
+  - número **positivo** = segundo absoluto (ej. `1320` = a los 22 min).
+  - número **negativo** = segundos **antes del final** (ej. `-100` = 100s antes del fin).
 
-Ejemplo: para saltar 90s de intro y cortar a los 1320s (22 min): `"inicio_seg": 90, "fin_seg": 1320`.
+Ejemplos: `"inicio_seg": 90, "fin_seg": 1320` (intro 90s, corta a 22 min).
+`"inicio_seg": 125, "fin_seg": -100` (arranca a 2:05, corta 100s antes del final).
+
+Al llegar al fin configurado, el canal muestra un cartel "Siguiente capítulo" y
+cambia solo al próximo, arrancándolo en su `inicio_seg`.
 
 ## Formato multi-serie (canal-tv/data.json)
 

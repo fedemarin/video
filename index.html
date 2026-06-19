@@ -24,6 +24,12 @@
     .player-box.oculto-controles .controls { opacity: 0; }
     .player-box.oculto-controles .overlay { cursor: none; }
 
+    .next-banner { position: absolute; right: 16px; bottom: 64px; z-index: 5;
+      background: rgba(20,20,28,.92); color: #fff; padding: 10px 16px; border-radius: 10px;
+      font-size: .95rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.5);
+      opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .3s, transform .3s; }
+    .next-banner.mostrar { opacity: 1; transform: translateY(0); }
+
     .barra { -webkit-appearance: none; appearance: none; width: 100%; height: 5px;
       border-radius: 4px; background: #555; cursor: pointer; }
     .barra::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px;
@@ -59,6 +65,8 @@
       <iframe id="player"
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
         allowfullscreen referrerpolicy="origin"></iframe>
+
+      <div class="next-banner" id="next-banner">Siguiente capítulo ▶</div>
 
       <div class="overlay" id="overlay">
         <div class="controls" id="controls">
@@ -157,6 +165,7 @@
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
       inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0);
+      $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
       estado("Cargando " + fuente.servidor + "…");
@@ -193,9 +202,12 @@
           inicioAplicado = true;
           if (inicioSeg > 0 && d.t < inicioSeg - 1) cmd("seek", inicioSeg);
         }
-        // pasar al siguiente en el segundo configurado (fin_seg)
-        if (finSeg != null && d.t >= finSeg && $("#auto").checked && !avanzando) {
-          avanzando = true; estado("Fin configurado, siguiente…"); irA(1);
+        // fin configurado: fin_seg >= 0 es segundo absoluto; < 0 es "N seg antes del final"
+        let finReal = null;
+        if (finSeg != null) finReal = finSeg < 0 ? (dur > 0 ? dur + finSeg : null) : finSeg;
+        if (finReal != null && d.t >= finReal) {
+          $("#next-banner").classList.add("mostrar"); // cartel "Siguiente capítulo"
+          if ($("#auto").checked && !avanzando) { avanzando = true; estado("Pasando al siguiente capítulo…"); irA(1); }
         }
       }
       // fin natural del video (si no hay fin_seg)
