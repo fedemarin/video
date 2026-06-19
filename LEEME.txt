@@ -1,0 +1,57 @@
+CANAL TV  -  iframe + userscript
+================================
+
+Que es esto
+-----------
+- index.html : tu "canal", 100% estatico (sirve para GitHub Pages).
+               Carga los capitulos del data.json (solo audio latino),
+               muestra el reproductor del host en un iframe y pasa solo
+               al siguiente capitulo cuando termina.
+- streamwish.user.js : userscript (Tampermonkey) que corre DENTRO de la
+               pagina de streamwish y hace lo que tu pagina no puede:
+               oculta publicidad, da play automatico y avisa cuando el
+               video termina (para el auto-siguiente).
+- data.json : los capitulos y servidores (generado antes).
+
+Por que hace falta el userscript
+---------------------------------
+Tu pagina NO puede tocar el contenido del iframe del host (regla de
+seguridad del navegador: same-origin policy). El userscript si puede,
+porque corre dentro de esa pagina. Es UNA sola extension a instalar
+(Tampermonkey); el .user.js NO es otra extension, es un archivo que
+Tampermonkey ejecuta.
+
+Instalacion (el usuario lo hace una vez)
+----------------------------------------
+1) Instalar Tampermonkey (gratis) desde la tienda del navegador:
+   Chrome/Edge/Firefox/Brave. (En iPhone no anda; en Android usar
+   Firefox o Kiwi Browser.)
+2) Abrir el archivo streamwish.user.js -> Tampermonkey ofrece instalarlo.
+   - Si lo publicas en GitHub Pages, alcanza con entrar a:
+     https://TU_USUARIO.github.io/TU_REPO/streamwish.user.js
+     y se instala de un clic, con auto-actualizacion incluida.
+3) Listo. Entrar a tu canal (index.html) y reproducir.
+
+Publicar en GitHub Pages
+------------------------
+1) Subi esta carpeta a un repo.
+2) Settings -> Pages -> Branch: main -> /(root).
+3) Tu canal queda en https://TU_USUARIO.github.io/TU_REPO/
+4) En streamwish.user.js, reemplaza TU_USUARIO y TU_REPO en las lineas
+   @namespace, @updateURL y @downloadURL por los tuyos.
+
+Como saber si el userscript esta activo
+---------------------------------------
+Al cargar un capitulo, si NO detecta el userscript en 4 segundos, la
+pagina muestra un aviso amarillo. Si esta activo, dice
+"Reproduciendo (userscript activo: sin publicidad)".
+
+Limites honestos
+----------------
+- Por ahora solo cubre STREAMWISH. Para EARNVIDS, ZOPLAYER, etc. hay que
+  agregar reglas equivalentes (se hace, es repetir el patron por host).
+- Si un host cambia su maquetado, hay que ajustar el script (igual que le
+  pasa a cualquier bloqueador).
+- El auto-siguiente depende de que el host dispare el evento de fin; se
+  usan dos respaldos (evento del <video> y de jwplayer).
+- Contenido sin licencia: uso personal.

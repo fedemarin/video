@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canal TV</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #0d0d10; color: #eee; }
+    .app { max-width: 1000px; margin: 0 auto; padding: 16px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    h1 { font-size: 1.1rem; margin: 0; }
+    .badge { background: #1d1d24; padding: 4px 10px; border-radius: 999px; font-size: .8rem; }
+    .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000; border-radius: 10px; overflow: hidden; }
+    iframe { width: 100%; height: 100%; border: 0; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+    .chip { background: #1d1d24; padding: 4px 10px; border-radius: 8px; font-size: .8rem; }
+    .acciones { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    button { background: #3b82f6; color: #fff; border: 0; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+    button.sec { background: #2a2a33; }
+    select { background: #1d1d24; color: #eee; border: 1px solid #333; border-radius: 8px; padding: 8px; }
+    #estado { font-size: .85rem; color: #9aa; min-height: 1.2em; margin-top: 8px; }
+    .aviso { font-size: .8rem; color: #c9a227; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <h1 id="serie">Canal TV</h1>
+      <span id="contador" class="badge">Cargando…</span>
+    </header>
+
+    <div class="player-box">
+      <!-- sandbox: bloquea popups (sin allow-popups) y que el host secuestre
+           la pestaña (sin allow-top-navigation). El userscript igual corre. -->
+      <iframe id="player"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
+        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+        allowfullscreen referrerpolicy="origin"></iframe>
+    </div>
+
+    <p id="cap">—</p>
+    <div class="chips">
+      <span class="chip" id="chip-idioma">—</span>
+      <label class="chip">Servidor:
+        <select id="sel-servidor"></select>
+      </label>
+    </div>
+
+    <div class="acciones">
+      <button id="btn-anterior" class="sec" type="button">⏮ Anterior</button>
+      <button id="btn-siguiente" type="button">Siguiente ⏭</button>
+      <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente al terminar</label>
+    </div>
+
+    <p id="estado"></p>
+    <p class="aviso" id="aviso"></p>
+  </main>
+
+  <!-- Respaldo para abrir con doble clic (file://): define window.CANAL_DATA -->
+  <script src="data.js"></script>
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const iframe = $("#player");
+
+    let capitulos = [];
+    let idxCap = 0;
+    let idxFuente = 0;
+    let userscriptActivo = false;
+
+    function estado(m) { $("#estado").textContent = m; }
+
+    function cargar(data) {
+      const serie = data.serie || {};
+      const caps = [];
+      (data.temporadas || []).forEach((t) => {
+        (t.capitulos || []).forEach((c) => {
+          const fuentes = (c.fuentes || []).filter((f) => (f.idioma || "").toUpperCase() === "LAT");
+          if (fuentes.length) caps.push({
+            serie: serie.titulo || "", temporada: t.numero,
+            capitulo: c.numero, titulo: c.titulo || "", fuentes,
+          });
+        });
+      });
+      caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
+      return caps;
+    }
+
+    function pintarServidores(cap) {
+      const sel = $("#sel-servidor");
+      sel.innerHTML = "";
+      cap.fuentes.forEach((f, i) => {
+        const o = document.createElement("option");
+        o.value = i; o.textContent = f.servidor;
+        sel.appendChild(o);
+      });
+      sel.value = idxFuente;
+    }
+
+    function reproducir() {
+      const cap = capitulos[idxCap];
+      if (!cap) return;
+      const fuente = cap.fuentes[idxFuente];
+      $("#serie").textContent = cap.serie || "Canal TV";
+      $("#cap").textContent = `${cap.titulo}  ·  T${cap.temporada} E${cap.capitulo}`;
+      $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
+      $("#contador").textContent = `Cap ${idxCap + 1}/${capitulos.length}`;
+      pintarServidores(cap);
+      userscriptActivo = false;
+      iframe.src = fuente.embed_url;
+      estado("Cargando " + fuente.servidor + "…");
+      // si en 4s el userscript no saludó, avisamos.
+      setTimeout(() => {
+        if (!userscriptActivo) {
+          $("#aviso").textContent =
+            "⚠ No detecté el userscript en este servidor. Sin él habrá publicidad y no andará el auto-siguiente. " +
+            "Instalá Tampermonkey + el script (ver LEEME), o probá otro servidor.";
+        } else {
+          $("#aviso").textContent = "";
+        }
+      }, 4000);
+    }
+
+    function irA(delta) {
+      const n = idxCap + delta;
+      if (n < 0 || n >= capitulos.length) { estado("No hay mas capitulos en esa direccion."); return; }
+      idxCap = n; idxFuente = 0; reproducir();
+    }
+
+    // ---- mensajes del userscript dentro del iframe ----
+    window.addEventListener("message", (ev) => {
+      const d = ev.data || {};
+      if (d.canal !== "streamwish") return;
+      if (d.tipo === "listo" || d.tipo === "play") {
+        userscriptActivo = true;
+        $("#aviso").textContent = "";
+        estado("Reproduciendo (userscript activo: sin publicidad).");
+      }
+      if (d.tipo === "ended" || d.tipo === "casi-fin") {
+        if ($("#auto").checked) { estado("Capitulo terminado, pasando al siguiente…"); irA(1); }
+      }
+    });
+
+    // ---- controles ----
+    $("#btn-siguiente").addEventListener("click", () => irA(1));
+    $("#btn-anterior").addEventListener("click", () => irA(-1));
+    $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; reproducir(); });
+
+    async function obtenerDatos() {
+      // 1) intento leer el JSON (cuando se sirve por http/https o GitHub Pages)
+      try {
+        const r = await fetch("data.json", { cache: "no-store" });
+        if (r.ok) return await r.json();
+      } catch (e) { /* file:// suele fallar el fetch */ }
+      // 2) respaldo para doble clic: data.js define window.CANAL_DATA
+      if (window.CANAL_DATA) return window.CANAL_DATA;
+      throw new Error("no se encontraron datos");
+    }
+
+    (async function init() {
+      try {
+        capitulos = cargar(await obtenerDatos());
+        if (!capitulos.length) { estado("El JSON no tiene fuentes en latino."); return; }
+        reproducir();
+      } catch (e) {
+        estado("No se pudieron cargar los datos. " + e.message);
+      }
+    })();
+  </script>
+</body>
+</html>
