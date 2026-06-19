@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
 // @namespace    https://github.com/fedemarin/video
-// @version      1.0.0
+// @version      1.1.0
 // @description  Oculta publicidad, arranca el video solo y avisa a la pagina padre cuando termina, para pasar al siguiente capitulo.
 // @author       vos
 // @match        https://streamwish.top/e/*
@@ -16,15 +16,42 @@
 (function () {
   "use strict";
 
-  // 1) MATAR POPUPS: anular window.open y los handlers que abren pestañas.
+  // 1) MATAR POPUPS (varias vias que usan estos hosts).
   try {
-    const _open = window.open;
-    window.open = function () { return null; };
-    // algunos players reasignan onclick para abrir popup en el primer clic
-    window.addEventListener("click", function (e) {
-      // dejamos pasar el clic al <video>, pero bloqueamos navegaciones a _blank
-    }, true);
+    // a) window.open bloqueado y NO reescribible por el host.
+    Object.defineProperty(window, "open", {
+      configurable: false,
+      get() { return function () { return null; }; },
+      set() { /* ignorar intentos de reasignar */ },
+    });
+  } catch (e) {
+    try { window.open = function () { return null; }; } catch (e2) {}
+  }
+
+  try {
+    // b) pop-under via <a target="_blank"> clickeado por codigo:
+    //    le sacamos el target a cualquier ancla que apunte afuera.
+    const _click = HTMLElement.prototype.click;
+    HTMLElement.prototype.click = function () {
+      if (this.tagName === "A" && this.target === "_blank") {
+        // no abrimos pestaña nueva
+        return;
+      }
+      return _click.apply(this, arguments);
+    };
   } catch (e) {}
+
+  // c) en fase de captura, frenamos clics que abririan pestaña externa,
+  //    sin estorbar los clics sobre el <video>/controles.
+  window.addEventListener("click", function (e) {
+    const a = e.target && e.target.closest && e.target.closest('a[target="_blank"]');
+    if (a) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
+  // d) bloquear redirecciones forzadas de toda la pestaña.
+  window.addEventListener("beforeunload", function (e) {
+    // no hacemos nada destructivo, solo evitamos prompts de salida de ads
+  });
 
   // 2) OCULTAR ADS: estilos que esconden overlays tipico de estos hosts.
   const css = `
