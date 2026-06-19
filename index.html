@@ -5,18 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Canal TV</title>
   <style>
-    :root { color-scheme: dark; }
-    body { margin: 0; font-family: system-ui, sans-serif; background: #0d0d10; color: #eee; }
-    .app { max-width: 1000px; margin: 0 auto; padding: 16px; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    h1 { font-size: 1.1rem; margin: 0; }
-    .badge { background: #1d1d24; padding: 4px 10px; border-radius: 999px; font-size: .8rem; }
+    :root { color-scheme: dark; --azul:#3b82f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #0b0b0f; color: #eee; }
+    .app { max-width: 1040px; margin: 0 auto; padding: 16px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand img { height: 40px; width: auto; border-radius: 6px; display: none; }
+    h1 { font-size: 1.15rem; margin: 0; }
+    .badge { background: #1d1d24; padding: 5px 11px; border-radius: 999px; font-size: .8rem; }
     .top-acciones { display: flex; gap: 8px; align-items: center; }
+    .btn-volver { background: #23232e; color: #cdd; border: 0; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: .85rem; display: none; }
     .badge.link { color: #8ab4ff; text-decoration: none; cursor: pointer; }
     .badge.link:hover { background: #26303f; }
     .badge.aviso-ext { background: #5a3a00; color: #ffd27a; }
     .oculto { display: none !important; }
-    .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000; border-radius: 10px; overflow: hidden; }
+
+    /* ---- selección de series (tarjetas) ---- */
+    .series-view h2 { font-size: 1rem; color: #aab; font-weight: 600; margin: 10px 2px 16px; }
+    .series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
+    .serie-card { background: #14141b; border: 1px solid #23232e; border-radius: 14px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+    .serie-card:hover { transform: translateY(-4px); border-color: var(--azul); box-shadow: 0 10px 24px rgba(0,0,0,.45); }
+    .serie-card .poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #000; display: block; }
+    .serie-card .cuerpo { padding: 11px 13px 14px; display: flex; flex-direction: column; gap: 6px; }
+    .serie-card h3 { margin: 0; font-size: 1.02rem; }
+    .serie-card .meta { font-size: .72rem; color: #7e8aa0; }
+    .serie-card p { margin: 0; font-size: .8rem; color: #9aa; line-height: 1.38; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ---- reproductor ---- */
+    .player-box { position: relative; aspect-ratio: 16/9; margin-top: 4px; background: #000; border-radius: 10px; overflow: hidden; }
     .player-box iframe { width: 100%; height: 100%; border: 0; display: block; }
     .overlay { position: absolute; inset: 0; cursor: pointer; }
     .controls { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px 8px; background: linear-gradient(transparent, rgba(0,0,0,.75)); transition: opacity .25s; display: flex; flex-direction: column; gap: 6px; }
@@ -27,17 +44,17 @@
     .next-banner { position: absolute; right: 16px; bottom: 64px; z-index: 5; background: rgba(20,20,28,.92); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: .95rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.5); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .3s, transform .3s; }
     .next-banner.mostrar { opacity: 1; transform: translateY(0); }
     .barra { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 4px; background: #555; cursor: pointer; }
-    .barra::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: #3b82f6; }
+    .barra::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--azul); }
     .fila { display: flex; align-items: center; gap: 12px; }
     .fila button { background: transparent; color: #fff; border: 0; font-size: 1.05rem; cursor: pointer; padding: 2px 4px; line-height: 1; }
     .tiempo { font-size: .8rem; color: #cdd; min-width: 92px; }
     .vol { width: 90px; }
     .spacer { flex: 1; }
     .nav-caps { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
-    .nav-caps button { background: #3b82f6; color: #fff; border: 0; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+    .nav-caps button { background: var(--azul); color: #fff; border: 0; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .9rem; }
     .nav-caps button:disabled { background: #2a2a33; color: #777; cursor: default; }
     .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; align-items: center; }
-    .chip { background: #1d1d24; padding: 4px 10px; border-radius: 8px; font-size: .8rem; }
+    .chip { background: #1d1d24; padding: 5px 11px; border-radius: 8px; font-size: .8rem; }
     select { background: #1d1d24; color: #eee; border: 1px solid #333; border-radius: 8px; padding: 6px; }
     #estado { font-size: .8rem; color: #9aa; min-height: 1.1em; margin-top: 6px; }
     .aviso { font-size: .8rem; color: #c9a227; }
@@ -46,67 +63,76 @@
 <body>
   <main class="app">
     <header class="topbar">
-      <h1 id="serie">Canal TV</h1>
+      <div class="brand">
+        <button id="b-volver" class="btn-volver">&#8592; Series</button>
+        <img id="serie-img" alt="" />
+        <h1 id="serie">Canal TV</h1>
+      </div>
       <div class="top-acciones">
-        <a id="dl-ext" class="badge link oculto" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer">⬇ Instalar extensión FedePlayer</a>
-        <span id="contador" class="badge">Cargando…</span>
+        <a id="dl-ext" class="badge link oculto" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer">&#11015; Instalar extensión FedePlayer</a>
+        <span id="contador" class="badge oculto">Cargando&#8230;</span>
       </div>
     </header>
 
-    <div class="player-box" id="box">
-      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe>
-      <div class="titulo-top" id="titulo-top"></div>
-      <div class="next-banner" id="next-banner">Siguiente capítulo &#9654;</div>
-      <div class="overlay" id="overlay">
-        <div class="controls" id="controls">
-          <input type="range" id="prog" class="barra" min="0" max="100" value="0" step="0.1" />
-          <div class="fila">
-            <button id="b-play" title="Reproducir/Pausar">&#9654;</button>
-            <button id="b-back10" title="Atrasar 10s">&#9194; 10</button>
-            <button id="b-fwd10" title="Adelantar 10s">10 &#9193;</button>
-            <button id="b-mute" title="Silenciar">&#128266;</button>
-            <input type="range" id="vol" class="vol barra" min="0" max="1" value="1" step="0.05" />
-            <span class="tiempo" id="tiempo">0:00 / 0:00</span>
-            <span class="spacer"></span>
-            <button id="b-full" title="Pantalla completa">&#9974;</button>
+    <!-- VISTA: selección de series -->
+    <section id="series-view" class="series-view">
+      <h2>Elegí una serie</h2>
+      <div id="series-grid" class="series-grid"></div>
+    </section>
+
+    <!-- VISTA: reproductor -->
+    <section id="player-view" class="oculto">
+      <div class="player-box" id="box">
+        <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe>
+        <div class="titulo-top" id="titulo-top"></div>
+        <div class="next-banner" id="next-banner">Siguiente cap&iacute;tulo &#9654;</div>
+        <div class="overlay" id="overlay">
+          <div class="controls" id="controls">
+            <input type="range" id="prog" class="barra" min="0" max="100" value="0" step="0.1" />
+            <div class="fila">
+              <button id="b-play" title="Reproducir/Pausar">&#9654;</button>
+              <button id="b-back10" title="Atrasar 10s">&#9194; 10</button>
+              <button id="b-fwd10" title="Adelantar 10s">10 &#9193;</button>
+              <button id="b-mute" title="Silenciar">&#128266;</button>
+              <input type="range" id="vol" class="vol barra" min="0" max="1" value="1" step="0.05" />
+              <span class="tiempo" id="tiempo">0:00 / 0:00</span>
+              <span class="spacer"></span>
+              <button id="b-full" title="Pantalla completa">&#9974;</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="nav-caps">
-      <button id="b-prev">&#9198; Anterior</button>
-      <label class="chip">Episodio: <select id="sel-cap"></select></label>
-      <button id="b-next">Siguiente &#9197;</button>
-    </div>
-
-    <div class="chips">
-      <label class="chip">Serie: <select id="sel-serie"></select></label>
-      <span class="chip" id="chip-idioma">&mdash;</span>
-      <label class="chip">Servidor: <select id="sel-servidor"></select></label>
-      <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente</label>
-      <button id="b-reporte" class="chip" style="cursor:pointer" title="Descargar lista de links rotos y capítulos sin servidor">&#129658; Reporte de fallos</button>
-    </div>
-    <p id="estado"></p>
-    <p class="aviso" id="aviso"></p>
+      <div class="nav-caps">
+        <button id="b-prev">&#9198; Anterior</button>
+        <label class="chip">Episodio: <select id="sel-cap"></select></label>
+        <button id="b-next">Siguiente &#9197;</button>
+      </div>
+      <div class="chips">
+        <span class="chip" id="chip-idioma">&mdash;</span>
+        <label class="chip">Servidor: <select id="sel-servidor"></select></label>
+        <label class="chip"><input type="checkbox" id="auto" checked /> Auto-siguiente</label>
+        <button id="b-reporte" class="chip" style="cursor:pointer" title="Descargar lista de links rotos y capitulos sin servidor">&#129658; Reporte de fallos</button>
+      </div>
+      <p id="estado"></p>
+      <p class="aviso" id="aviso"></p>
+    </section>
   </main>
 
   <script src="data.js"></script>
   <script>
     const $ = (s) => document.querySelector(s);
     const iframe = $("#player"), box = $("#box");
-
     let series = [];
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
-    let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
+    let dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
     let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioDeadline = 0, resumeT = 0;
 
     function guardarEstado() { try { localStorage.setItem("canaltv_estado", JSON.stringify({ serie: idxSerie, cap: idxCap, t: Math.floor(lastT || 0) })); } catch (e) {} }
-    function restaurarEstado() { try { const s = JSON.parse(localStorage.getItem("canaltv_estado") || "null"); if (s && series[s.serie] && series[s.serie].caps[s.cap]) { idxSerie = s.serie; idxCap = s.cap; resumeT = s.t || 0; } } catch (e) {} }
+    function leerEstado() { try { return JSON.parse(localStorage.getItem("canaltv_estado") || "null"); } catch (e) { return null; } }
 
     const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "DOOD", "STREAMTAPE"];
     const CANALES = ["streamwish", "earnvids", "uqload", "dood", "netu", "streamtape"];
-    const SERVIDORES_NO_USAR = ["NETU"]; // bloquea por referer: no anda embebido
+    const SERVIDORES_NO_USAR = ["NETU"];
     const FP_VERSION_OK = "1.3.0";
 
     function evaluarExtension(version) {
@@ -116,7 +142,6 @@
     }
     setTimeout(() => { if (!window.__fpVisto) evaluarExtension(null); }, 8000);
 
-    // --- registro de links rotos ---
     let rotos = {};
     try { rotos = JSON.parse(localStorage.getItem("canaltv_rotos") || "{}"); } catch (e) {}
     function keyR(tit, cap, srv) { return tit + "#" + cap + "#" + (srv || "").toUpperCase(); }
@@ -137,9 +162,7 @@
 
     let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null, reintentos = 0;
     const MAX_REINTENTOS = 2;
-
     function cargarCapitulo() { const cap = series[idxSerie].caps[idxCap]; ordenActual = ordenFuentes(cap); posOrden = 0; idxFuente = ordenActual[0]; reproducir(); }
-
     function probarSiguienteFuente(motivo) {
       if (reproduciendoOK) return;
       if (reintentos < MAX_REINTENTOS) { reintentos++; estado("Recargando servidor (intento " + reintentos + ", " + (motivo || "") + ")…"); reproducir(true); return; }
@@ -162,7 +185,7 @@
           if (fuentes.length) caps.push({ temporada: t.numero, capitulo: c.numero, titulo: c.titulo || "", fuentes, inicio_seg: c.inicio_seg || 0, fin_seg: (c.fin_seg == null ? null : c.fin_seg) });
         }));
         caps.sort((a, b) => (a.capitulo || 0) - (b.capitulo || 0));
-        return { titulo: serie.titulo || "Serie", caps };
+        return { titulo: serie.titulo || "Serie", imagen: serie.imagen || "", descripcion: serie.descripcion || "", caps };
       }).filter((s) => s.caps.length);
     }
     async function obtenerDatos() {
@@ -170,9 +193,47 @@
       if (window.CANAL_DATA) return window.CANAL_DATA;
       throw new Error("no se encontraron datos");
     }
-    function pintarSelectSeries() { const sel = $("#sel-serie"); sel.innerHTML = ""; series.forEach((s, i) => { const o = document.createElement("option"); o.value = i; o.textContent = s.titulo; sel.appendChild(o); }); sel.value = idxSerie; }
+
+    // ---- vista de series (tarjetas) ----
+    function pintarSeriesCards() {
+      const g = $("#series-grid"); g.innerHTML = "";
+      series.forEach((s, i) => {
+        const card = document.createElement("div");
+        card.className = "serie-card";
+        card.innerHTML =
+          '<img class="poster" alt="" src="' + (s.imagen || "") + '" onerror="this.style.background=\'#1a1a22\';this.removeAttribute(\'src\')" />' +
+          '<div class="cuerpo"><h3>' + s.titulo + '</h3>' +
+          '<div class="meta">' + s.caps.length + ' capítulos · Latino</div>' +
+          '<p>' + (s.descripcion || "") + '</p></div>';
+        card.addEventListener("click", () => abrirSerie(i));
+        g.appendChild(card);
+      });
+    }
+    function abrirSerie(i) {
+      idxSerie = i; idxCap = 0; resumeT = 0;
+      const est = leerEstado();
+      if (est && est.serie === i && series[i].caps[est.cap]) { idxCap = est.cap; resumeT = est.t || 0; }
+      $("#series-view").classList.add("oculto");
+      $("#player-view").classList.remove("oculto");
+      $("#b-volver").style.display = "";
+      $("#contador").classList.remove("oculto");
+      pintarCaps(series[i]);
+      cargarCapitulo();
+    }
+    function volverASeries() {
+      iframe.src = "about:blank"; playing = false;
+      clearTimeout(fallbackTimer);
+      $("#player-view").classList.add("oculto");
+      $("#series-view").classList.remove("oculto");
+      $("#b-volver").style.display = "none";
+      $("#contador").classList.add("oculto");
+      $("#serie-img").style.display = "none";
+      $("#serie").textContent = "Canal TV";
+    }
+
     function pintarCaps(serie) { const sel = $("#sel-cap"); sel.innerHTML = ""; serie.caps.forEach((c, i) => { const o = document.createElement("option"); o.value = i; o.textContent = "T" + c.temporada + " E" + c.capitulo + (c.titulo ? " · " + c.titulo : ""); sel.appendChild(o); }); }
     function pintarServidores(cap) { const sel = $("#sel-servidor"); sel.innerHTML = ""; cap.fuentes.forEach((f, i) => { const o = document.createElement("option"); o.value = i; o.textContent = f.servidor; sel.appendChild(o); }); sel.value = idxFuente; }
+    function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "❚❚" : "▶"; }
 
     function reproducir(recarga) {
       const serie = series[idxSerie]; if (!serie) return;
@@ -180,6 +241,8 @@
       if (!recarga) reintentos = 0;
       const fuente = cap.fuentes[idxFuente];
       $("#serie").textContent = serie.titulo;
+      const simg = $("#serie-img");
+      if (serie.imagen) { simg.src = serie.imagen; simg.style.display = ""; } else { simg.style.display = "none"; }
       $("#titulo-top").textContent = serie.titulo + " · T" + cap.temporada + " E" + cap.capitulo + (cap.titulo ? " · " + cap.titulo : "");
       $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
       $("#contador").textContent = "Cap " + (idxCap + 1) + "/" + serie.caps.length;
@@ -193,7 +256,7 @@
       finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
       inicioDeadline = Date.now() + 12000;
       $("#next-banner").classList.remove("mostrar");
-      userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
+      dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
       $("#aviso").textContent = "";
       iframe.src = fuente.embed_url + (recarga ? (fuente.embed_url.includes("?") ? "&" : "?") + "r=" + Date.now() : "");
       estado("Cargando " + fuente.servidor + (recarga ? " (reintento)…" : "…"));
@@ -202,15 +265,14 @@
     }
     function irA(delta) { const serie = series[idxSerie]; const n = idxCap + delta; if (n < 0 || n >= serie.caps.length) return; idxCap = n; cargarCapitulo(); }
 
-    function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "❚❚" : "▶"; }
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
       if (d.version) { window.__fpVisto = true; evaluarExtension(d.version); }
       if (d.tipo === "fp") return;
       if (d.tipo === "error") { reintentos = MAX_REINTENTOS; probarSiguienteFuente(d.motivo || "error"); return; }
-      if (d.tipo === "listo" || d.tipo === "play") { userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo)."); avanzando = false; }
+      if (d.tipo === "listo" || d.tipo === "play") { $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo)."); avanzando = false; }
       if (d.tipo === "estado") {
-        userscriptActivo = true; setPlayIcon(!!d.playing);
+        setPlayIcon(!!d.playing);
         if (d.playing && (d.t > 0 || d.dur > 0)) { reproduciendoOK = true; clearTimeout(fallbackTimer); marcarOk(series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor); }
         dur = d.dur || dur; lastT = d.t || 0;
         if (!seekeando && dur) $("#prog").value = (d.t / dur) * 100;
@@ -226,6 +288,7 @@
       if ((d.tipo === "ended" || d.tipo === "casi-fin") && finSeg == null) { if ($("#auto").checked && !avanzando) { avanzando = true; estado("Capítulo terminado, siguiente…"); irA(1); } }
     });
 
+    $("#b-volver").addEventListener("click", volverASeries);
     $("#overlay").addEventListener("click", (e) => { if (e.target.id === "overlay") cmd("toggle"); });
     $("#b-play").addEventListener("click", (e) => { e.stopPropagation(); cmd("toggle"); });
     $("#b-back10").addEventListener("click", (e) => { e.stopPropagation(); cmd("seek", Math.max(0, lastT - 10)); });
@@ -245,28 +308,22 @@
       estado("Reporte descargado: " + Object.keys(rotos).length + " links rotos, " + sinServidor.length + " capítulos sin servidor que ande.");
     }
     $("#b-reporte").addEventListener("click", generarReporte);
-
     $("#b-prev").addEventListener("click", () => irA(-1));
     $("#b-next").addEventListener("click", () => irA(1));
     $("#sel-cap").addEventListener("change", (e) => { idxCap = +e.target.value; cargarCapitulo(); });
     $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; const p = ordenActual.indexOf(idxFuente); posOrden = p >= 0 ? p : 0; reproducir(); });
-    $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; pintarCaps(series[idxSerie]); cargarCapitulo(); });
 
     let tOcultar;
     function mostrarControles() { box.classList.remove("oculto-controles"); clearTimeout(tOcultar); tOcultar = setTimeout(() => { if (playing) box.classList.add("oculto-controles"); }, 3000); }
     box.addEventListener("mousemove", mostrarControles);
     box.addEventListener("mouseleave", () => { if (playing) box.classList.add("oculto-controles"); });
-    mostrarControles();
 
     (async function init() {
       try {
         series = normalizar(await obtenerDatos());
-        if (!series.length) { estado("No hay series con fuentes en latino."); return; }
-        restaurarEstado();
-        pintarSelectSeries();
-        pintarCaps(series[idxSerie]);
-        cargarCapitulo();
-      } catch (e) { estado("No se pudieron cargar los datos. " + e.message); }
+        if (!series.length) { $("#series-grid").innerHTML = "<p>No hay series con fuentes en latino.</p>"; return; }
+        pintarSeriesCards();
+      } catch (e) { $("#series-grid").innerHTML = "<p>No se pudieron cargar los datos. " + e.message + "</p>"; }
     })();
   </script>
 </body>
