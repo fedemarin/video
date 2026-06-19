@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
 // @namespace    https://github.com/fedemarin/video
-// @version      1.3.0
+// @version      1.4.0
 // @description  Oculta publicidad, arranca el video solo y avisa a la pagina padre cuando termina, para pasar al siguiente capitulo.
 // @author       vos
 // @match        https://streamwish.top/e/*
@@ -31,17 +31,37 @@
   // (b) Nota: NO sobreescribimos HTMLElement.prototype.click porque jwplayer
   //     lo usa internamente para arrancar; hacerlo rompia el reproductor.
 
-  // c) en fase de captura, frenamos clics que abririan pestaña externa,
-  //    sin estorbar los clics sobre el <video>/controles.
-  window.addEventListener("click", function (e) {
-    const a = e.target && e.target.closest && e.target.closest('a[target="_blank"]');
-    if (a) { e.preventDefault(); e.stopPropagation(); }
-  }, true);
-
-  // d) bloquear redirecciones forzadas de toda la pestaña.
-  window.addEventListener("beforeunload", function (e) {
-    // no hacemos nada destructivo, solo evitamos prompts de salida de ads
+  // c) Bloquear popunders: los ads ponen un <a target=_blank> (o capturan el
+  //    primer clic) por ENCIMA del player. El reproductor jwplayer usa <div>,
+  //    no <a>. Asi que bloqueamos cualquier clic sobre un <a> que NO sea parte
+  //    de jwplayer, en varias fases (mousedown/pointerdown/click/auxclick).
+  function esAnclaDeAd(target) {
+    if (!target || !target.closest) return null;
+    const a = target.closest("a");
+    if (!a) return null;
+    if (a.closest(".jwplayer, .jw-wrapper")) return null; // respetar el player
+    return a;
+  }
+  ["pointerdown", "mousedown", "mouseup", "click", "auxclick"].forEach((tipo) => {
+    window.addEventListener(tipo, function (e) {
+      const a = esAnclaDeAd(e.target);
+      if (a) { e.preventDefault(); e.stopPropagation(); if (e.stopImmediatePropagation) e.stopImmediatePropagation(); }
+    }, true);
   });
+
+  // d) Sacar target=_blank de las anclas a medida que aparecen (mata el popunder
+  //    sin navegar la pestaña), salvo dentro de jwplayer.
+  function limpiarAnclas(root) {
+    (root.querySelectorAll ? root.querySelectorAll('a[target="_blank"]') : []).forEach((a) => {
+      if (!a.closest(".jwplayer, .jw-wrapper")) a.removeAttribute("target");
+    });
+  }
+  new MutationObserver((muts) => {
+    muts.forEach((m) => m.addedNodes && m.addedNodes.forEach((n) => { if (n.nodeType === 1) limpiarAnclas(n); }));
+  }).observe(document.documentElement, { childList: true, subtree: true });
+
+  // e) evitar prompts de "¿seguro que querés salir?" de los ads.
+  window.addEventListener("beforeunload", function () {});
 
   // 2) OCULTAR ADS: estilos que esconden overlays tipico de estos hosts.
   const css = `
