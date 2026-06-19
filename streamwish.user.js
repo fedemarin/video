@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
 // @namespace    https://github.com/fedemarin/video
-// @version      1.1.0
+// @version      1.2.0
 // @description  Oculta publicidad, arranca el video solo y avisa a la pagina padre cuando termina, para pasar al siguiente capitulo.
 // @author       vos
 // @match        https://streamwish.top/e/*
@@ -28,18 +28,8 @@
     try { window.open = function () { return null; }; } catch (e2) {}
   }
 
-  try {
-    // b) pop-under via <a target="_blank"> clickeado por codigo:
-    //    le sacamos el target a cualquier ancla que apunte afuera.
-    const _click = HTMLElement.prototype.click;
-    HTMLElement.prototype.click = function () {
-      if (this.tagName === "A" && this.target === "_blank") {
-        // no abrimos pestaña nueva
-        return;
-      }
-      return _click.apply(this, arguments);
-    };
-  } catch (e) {}
+  // (b) Nota: NO sobreescribimos HTMLElement.prototype.click porque jwplayer
+  //     lo usa internamente para arrancar; hacerlo rompia el reproductor.
 
   // c) en fase de captura, frenamos clics que abririan pestaña externa,
   //    sin estorbar los clics sobre el <video>/controles.
@@ -83,17 +73,25 @@
   function engancharVideo(v) {
     if (!v || v.__canalEnganchado) return;
     v.__canalEnganchado = true;
-    v.muted = false;
-    // autoplay (si el navegador exige gesto, igual queda listo para 1 clic)
+    // CLAVE: arrancamos MUTEADO. El navegador permite autoplay solo si esta
+    // en silencio; embebido cross-origin no hay gesto que destrabe el sonido,
+    // asi que muteado es la unica forma de que el video arranque solo.
+    v.muted = true;
+    v.setAttribute("muted", "");
     const intentarPlay = () => v.play().catch(() => {});
     intentarPlay();
     v.addEventListener("canplay", intentarPlay, { once: true });
+    v.addEventListener("loadeddata", intentarPlay, { once: true });
     v.addEventListener("ended", () => avisarPadre("ended"));
     v.addEventListener("play", () => avisarPadre("play"));
     v.addEventListener("timeupdate", () => {
-      // respaldo: si quedan <1s y casi termino, avisamos igual
       if (v.duration && v.currentTime >= v.duration - 0.8) avisarPadre("casi-fin");
     });
+
+    // Al primer clic/tecla del usuario dentro del player, quitamos el mute.
+    const desmutear = () => { v.muted = false; };
+    document.addEventListener("click", desmutear, { once: true });
+    document.addEventListener("keydown", desmutear, { once: true });
   }
 
   // jwplayer expone eventos mas confiables que el <video> crudo
@@ -101,7 +99,10 @@
     try {
       if (window.jwplayer && jwplayer().on) {
         jwplayer().on("complete", () => avisarPadre("ended"));
-        jwplayer().on("ready", () => { try { jwplayer().play(); } catch (e) {} });
+        jwplayer().on("ready", () => {
+          try { jwplayer().setMute(true); } catch (e) {}
+          try { jwplayer().play(); } catch (e) {}
+        });
         return true;
       }
     } catch (e) {}
