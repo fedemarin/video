@@ -68,6 +68,18 @@
     let idxFuente = 0;
     let userscriptActivo = false;
 
+    // Servidores para los que YA tenemos userscript (sin ads + autoplay + auto-siguiente).
+    // Agregar aca el nombre cuando sumemos EARNVIDS, ZOPLAYER, etc.
+    const SERVIDORES_SOPORTADOS = ["STREAMWISH"];
+
+    // Devuelve el indice del primer servidor soportado del capitulo (o 0 si ninguno).
+    function fuenteInicial(cap) {
+      const i = cap.fuentes.findIndex(
+        (f) => SERVIDORES_SOPORTADOS.includes((f.servidor || "").toUpperCase())
+      );
+      return i >= 0 ? i : 0;
+    }
+
     function estado(m) { $("#estado").textContent = m; }
 
     function cargar(data) {
@@ -124,7 +136,7 @@
     function irA(delta) {
       const n = idxCap + delta;
       if (n < 0 || n >= capitulos.length) { estado("No hay mas capitulos en esa direccion."); return; }
-      idxCap = n; idxFuente = 0; reproducir();
+      idxCap = n; idxFuente = fuenteInicial(capitulos[n]); reproducir();
     }
 
     // ---- mensajes del userscript dentro del iframe ----
@@ -161,6 +173,7 @@
       try {
         capitulos = cargar(await obtenerDatos());
         if (!capitulos.length) { estado("El JSON no tiene fuentes en latino."); return; }
+        idxFuente = fuenteInicial(capitulos[idxCap]);
         reproducir();
       } catch (e) {
         estado("No se pudieron cargar los datos. " + e.message);
