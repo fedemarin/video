@@ -24,6 +24,12 @@
     .player-box.oculto-controles .controls { opacity: 0; }
     .player-box.oculto-controles .overlay { cursor: none; }
 
+    .titulo-top { position: absolute; left: 0; right: 0; top: 0; z-index: 4;
+      padding: 10px 14px; font-size: .9rem; font-weight: 600; color: #fff;
+      background: linear-gradient(rgba(0,0,0,.7), transparent);
+      transition: opacity .25s; pointer-events: none; }
+    .player-box.oculto-controles .titulo-top { opacity: 0; }
+
     .next-banner { position: absolute; right: 16px; bottom: 64px; z-index: 5;
       background: rgba(20,20,28,.92); color: #fff; padding: 10px 16px; border-radius: 10px;
       font-size: .95rem; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.5);
@@ -66,6 +72,7 @@
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
         allowfullscreen referrerpolicy="origin"></iframe>
 
+      <div class="titulo-top" id="titulo-top"></div>
       <div class="next-banner" id="next-banner">Siguiente capítulo ▶</div>
 
       <div class="overlay" id="overlay">
@@ -110,7 +117,7 @@
     let series = [];          // [{titulo, capitulos:[...]}]
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
-    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false;
+    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioIntentos = 0;
 
     // El orden marca la PRIORIDAD: EarnVids primero (default), luego StreamWish.
     const SERVIDORES_SOPORTADOS = ["EARNVIDS", "STREAMWISH"];
@@ -172,13 +179,14 @@
       const cap = serie.caps[idxCap]; if (!cap) return;
       const fuente = cap.fuentes[idxFuente];
       $("#serie").textContent = serie.titulo;
+      $("#titulo-top").textContent = serie.titulo + " · T" + cap.temporada + " E" + cap.capitulo + (cap.titulo ? " · " + cap.titulo : "");
       $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
       $("#contador").textContent = `Cap ${idxCap + 1}/${serie.caps.length}`;
       $("#sel-cap").value = idxCap;
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
-      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
+      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false; inicioIntentos = 0;
       $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
@@ -211,11 +219,12 @@
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
 
-        // saltar al inicio configurado (una sola vez): forzamos la posición,
-        // ignorando que streamwish recuerde dónde quedó (resume).
-        if (!inicioAplicado && dur > 0) {
-          inicioAplicado = true;
-          if (inicioSeg > 0) cmd("seek", inicioSeg);
+        // saltar al inicio configurado: reintentamos hasta confirmar la posición
+        // (algunos players ignoran el primer seek si todavía no están listos).
+        if (!inicioAplicado && inicioSeg > 0 && dur > 0) {
+          if (d.t >= inicioSeg - 3) { inicioAplicado = true; }      // ya llegó
+          else if (inicioIntentos < 25) { inicioIntentos++; cmd("seek", inicioSeg); }
+          else { inicioAplicado = true; }                          // me rindo tras varios intentos
         }
         // fin configurado: >=0 segundo absoluto; <0 = "N seg antes del final"
         let finReal = null;
