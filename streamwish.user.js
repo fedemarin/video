@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
 // @namespace    https://github.com/fedemarin/video
-// @version      1.2.0
+// @version      1.3.0
 // @description  Oculta publicidad, arranca el video solo y avisa a la pagina padre cuando termina, para pasar al siguiente capitulo.
 // @author       vos
 // @match        https://streamwish.top/e/*
@@ -45,16 +45,20 @@
 
   // 2) OCULTAR ADS: estilos que esconden overlays tipico de estos hosts.
   const css = `
-    /* contenedores de publicidad / overlays frecuentes */
-    .ad, .ads, .advertisement, [id*="ad_"], [class*="ad_"],
-    [id^="ad"], iframe[src*="ads"], .pop, .popup, .vast, .vpaid,
-    a[href*="//"][target="_blank"]:not(.jw-video):empty,
-    #overlay-ads, .video-ads, .jw-overlays > div:not(.jw-controls) {
-      display: none !important; visibility: hidden !important;
-      pointer-events: none !important; opacity: 0 !important;
+    /* ocultar SOLO contenedores de publicidad conocidos, sin tocar jwplayer */
+    .advertisement, .video-ads, #overlay-ads, .vast, .vpaid,
+    iframe[src*="ads"], iframe[src*="adserver"],
+    a[href*="//"][target="_blank"]:empty {
+      display: none !important; pointer-events: none !important; opacity: 0 !important;
     }
-    /* asegurar que el player se vea completo */
-    video, .jwplayer, #vplayer { z-index: 2147483646 !important; }
+    /* NO escondemos clases genericas tipo [class*=ad] ni .jw-overlays
+       porque ahi viven los controles del reproductor. */
+
+    /* forzar que los controles de jwplayer sean usables/visibles */
+    .jw-controls, .jw-controlbar, .jw-display, .jw-display-icon-container,
+    .jw-icon, .jw-svg-icon { opacity: 1 !important; visibility: visible !important;
+      pointer-events: auto !important; z-index: 2147483647 !important; }
+    .jwplayer.jw-flag-user-inactive .jw-controls { opacity: 1 !important; }
   `;
   function inyectarCss() {
     const s = document.createElement("style");
@@ -89,9 +93,24 @@
     });
 
     // Al primer clic/tecla del usuario dentro del player, quitamos el mute.
-    const desmutear = () => { v.muted = false; };
+    const desmutear = () => { v.muted = false; try { if (window.jwplayer) jwplayer().setMute(false); } catch (e) {} };
     document.addEventListener("click", desmutear, { once: true });
     document.addEventListener("keydown", desmutear, { once: true });
+
+    // Intento de desmuteo automatico ~1.2s despues de arrancar.
+    // Si Chrome lo bloquea, pausa el video: lo detectamos y volvemos a mute.
+    setTimeout(() => {
+      if (v.paused) return; // todavia no arranco
+      v.muted = false;
+      try { if (window.jwplayer) jwplayer().setMute(false); } catch (e) {}
+      setTimeout(() => {
+        if (v.paused) { // el navegador lo pauso por desmutear sin gesto
+          v.muted = true;
+          try { if (window.jwplayer) jwplayer().setMute(true); } catch (e) {}
+          v.play().catch(() => {});
+        }
+      }, 250);
+    }, 1200);
   }
 
   // jwplayer expone eventos mas confiables que el <video> crudo
