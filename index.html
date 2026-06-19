@@ -14,6 +14,8 @@
     .top-acciones { display: flex; gap: 8px; align-items: center; }
     .badge.link { color: #8ab4ff; text-decoration: none; cursor: pointer; }
     .badge.link:hover { background: #26303f; }
+    .badge.aviso-ext { background: #5a3a00; color: #ffd27a; }
+    .oculto { display: none !important; }
 
     .player-box { position: relative; aspect-ratio: 16/9; margin-top: 12px; background: #000;
       border-radius: 10px; overflow: hidden; }
@@ -68,7 +70,7 @@
     <header class="topbar">
       <h1 id="serie">Canal TV</h1>
       <div class="top-acciones">
-        <a id="dl-ext" class="badge link" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer (anti-publicidad + autoplay)">⬇ Instalar FedePlayer</a>
+        <a id="dl-ext" class="badge link oculto" href="fedeplayer.zip" download title="Descargar la extensión FedePlayer (anti-publicidad + autoplay)">⬇ Instalar extensión FedePlayer</a>
         <span id="contador" class="badge">Cargando…</span>
       </div>
     </header>
@@ -141,6 +143,21 @@
     // El orden marca la PRIORIDAD: StreamWish primero (default), luego EarnVids.
     const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "UQLOAD", "STREAMTAPE"];
     const CANALES = ["streamwish", "earnvids", "uqload", "streamtape"]; // canales que envía FedePlayer
+    const FP_VERSION_OK = "1.2.2"; // versión esperada de la extensión FedePlayer
+
+    // Muestra/oculta el botón de instalar según versión detectada de FedePlayer.
+    function evaluarExtension(version) {
+      const btn = $("#dl-ext");
+      if (version === FP_VERSION_OK) {            // al día -> ocultar
+        btn.classList.add("oculto"); btn.classList.remove("aviso-ext");
+      } else {                                    // falta o vieja -> mostrar
+        btn.classList.remove("oculto");
+        if (version) { btn.classList.add("aviso-ext"); btn.textContent = "⬇ Actualizar extensión FedePlayer (v" + version + " → " + FP_VERSION_OK + ")"; }
+        else { btn.textContent = "⬇ Instalar extensión FedePlayer"; }
+      }
+    }
+    // Si en 8s no llegó ningún mensaje de FedePlayer, asumimos que no está.
+    setTimeout(() => { if ($("#dl-ext").textContent.indexOf("→") === -1 && !window.__fpVisto) evaluarExtension(null); }, 8000);
 
     // Orden en que se prueban los servidores de un capítulo:
     // primero los soportados (por prioridad), luego el resto como respaldo.
@@ -153,7 +170,8 @@
       return sup.concat(resto);
     }
 
-    let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null, reintentado = false;
+    let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null, reintentos = 0;
+    const MAX_REINTENTOS = 2;
 
     function cargarCapitulo() {
       const cap = series[idxSerie].caps[idxCap];
@@ -168,10 +186,10 @@
     // Si vuelve a fallar, recién ahí salta al siguiente servidor.
     function probarSiguienteFuente(motivo) {
       if (reproduciendoOK) return;
-      if (!reintentado) {
-        reintentado = true;
-        estado("Recargando servidor (" + (motivo || "") + ")…");
-        reproducir(true);   // recarga el mismo, sin resetear el reintento
+      if (reintentos < MAX_REINTENTOS) {
+        reintentos++;
+        estado("Recargando servidor (intento " + reintentos + ", " + (motivo || "") + ")…");
+        reproducir(true);   // recarga el mismo, sin resetear el contador
         return;
       }
       if (posOrden + 1 < ordenActual.length) {
@@ -205,7 +223,10 @@
       }).filter((s) => s.caps.length);
     }
     async function obtenerDatos() {
-      try { const r = await fetch("data.json", { cache: "no-store" }); if (r.ok) return await r.json(); } catch (e) {}
+      // En file:// el fetch de data.json da error de CORS: usamos directo data.js.
+      if (location.protocol !== "file:") {
+        try { const r = await fetch("data.json", { cache: "no-store" }); if (r.ok) return await r.json(); } catch (e) {}
+      }
       if (window.CANAL_DATA) return window.CANAL_DATA;
       throw new Error("no se encontraron datos");
     }
@@ -233,7 +254,7 @@
     function reproducir(recarga) {
       const serie = series[idxSerie]; if (!serie) return;
       const cap = serie.caps[idxCap]; if (!cap) return;
-      if (!recarga) reintentado = false;   // carga nueva: se habilita 1 reintento
+      if (!recarga) reintentos = 0;   // carga nueva: se habilitan los reintentos
       const fuente = cap.fuentes[idxFuente];
       $("#serie").textContent = serie.titulo;
       $("#titulo-top").textContent = serie.titulo + " · T" + cap.temporada + " E" + cap.capitulo + (cap.titulo ? " · " + cap.titulo : "");
@@ -269,6 +290,8 @@
     function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "⏸" : "▶"; }
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
+      if (d.version) { window.__fpVisto = true; evaluarExtension(d.version); }
+      if (d.tipo === "fp") return; // solo anuncio de presencia/versión
       if (d.tipo === "error") { probarSiguienteFuente(d.motivo || "error"); return; }
       if (d.tipo === "listo" || d.tipo === "play") {
         userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo).");
