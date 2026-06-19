@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canal TV - STREAMWISH (anti-ads + autoplay + auto-siguiente)
 // @namespace    https://github.com/fedemarin/video
-// @version      1.4.0
+// @version      1.6.0
 // @description  Oculta publicidad, arranca el video solo y avisa a la pagina padre cuando termina, para pasar al siguiente capitulo.
 // @author       vos
 // @match        https://streamwish.top/e/*
@@ -28,8 +28,21 @@
     try { window.open = function () { return null; }; } catch (e2) {}
   }
 
-  // (b) Nota: NO sobreescribimos HTMLElement.prototype.click porque jwplayer
-  //     lo usa internamente para arrancar; hacerlo rompia el reproductor.
+  // b) Interceptar HTMLElement.prototype.click: los popunders crean un
+  //    <a target=_blank> DESPEGADO del DOM y le llaman .click() por codigo.
+  //    Eso no burbujea hasta window, asi que solo se atrapa aca. Bloqueamos
+  //    SOLO anclas con target=_blank que no sean parte de jwplayer; el resto
+  //    (incluidos los botones internos del player) pasan normal.
+  try {
+    const _click = HTMLElement.prototype.click;
+    HTMLElement.prototype.click = function () {
+      if (this.tagName === "A" && this.target === "_blank" &&
+          !(this.closest && this.closest(".jwplayer, .jw-wrapper"))) {
+        return; // popunder bloqueado
+      }
+      return _click.apply(this, arguments);
+    };
+  } catch (e) {}
 
   // c) Bloquear popunders: los ads ponen un <a target=_blank> (o capturan el
   //    primer clic) por ENCIMA del player. El reproductor jwplayer usa <div>,
@@ -112,25 +125,11 @@
       if (v.duration && v.currentTime >= v.duration - 0.8) avisarPadre("casi-fin");
     });
 
-    // Al primer clic/tecla del usuario dentro del player, quitamos el mute.
+    // Al primer clic/tecla del usuario quitamos el mute (sin parpadeos: NO
+    // intentamos desmutear solos, porque Chrome lo bloquea y suena cortado).
     const desmutear = () => { v.muted = false; try { if (window.jwplayer) jwplayer().setMute(false); } catch (e) {} };
     document.addEventListener("click", desmutear, { once: true });
     document.addEventListener("keydown", desmutear, { once: true });
-
-    // Intento de desmuteo automatico ~1.2s despues de arrancar.
-    // Si Chrome lo bloquea, pausa el video: lo detectamos y volvemos a mute.
-    setTimeout(() => {
-      if (v.paused) return; // todavia no arranco
-      v.muted = false;
-      try { if (window.jwplayer) jwplayer().setMute(false); } catch (e) {}
-      setTimeout(() => {
-        if (v.paused) { // el navegador lo pauso por desmutear sin gesto
-          v.muted = true;
-          try { if (window.jwplayer) jwplayer().setMute(true); } catch (e) {}
-          v.play().catch(() => {});
-        }
-      }, 250);
-    }, 1200);
   }
 
   // jwplayer expone eventos mas confiables que el <video> crudo
