@@ -6,7 +6,7 @@ window.CANAL_DATA = {
         "slug": "one-piece",
         "tipo": "tv",
         "descripcion": "Monkey D. Luffy, un joven cuyo cuerpo se volvió de goma, zarpa para encontrar el legendario tesoro 'One Piece' y convertirse en el Rey de los Piratas. En el camino reúne a su tripulación, los Sombrero de Paja, y vive aventuras por todos los mares.",
-        "imagen": "https://image.tmdb.org/t/p/w780/sk9O7N1vFsT5fQntSGXtNoFkQ21.jpg",
+        "imagen": "https://m.media-amazon.com/images/M/MV5BZDg0NDRmZTctODE4NC00NTZhLTllY2MtZWMwODc3ZDkwN2U1XkEyXkFqcGc@._V1_FMjpg_UY5732_.jpg",
         "sitio_origen": "https://ww3.animeonline.ninja"
       },
       "temporadas": [
