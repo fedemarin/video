@@ -2,295 +2,6 @@ window.CANAL_DATA = {
   "series": [
     {
       "serie": {
-        "titulo": "Dr. Stone: Science Future",
-        "slug": "dr-stone-science-future",
-        "tipo": "tv"
-      },
-      "temporadas": [
-        {
-          "numero": 4,
-          "titulo": "Science Future",
-          "capitulos": [
-            {
-              "numero": 30,
-              "titulo": "Dr. Stone: Science Future Cap 30",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-30/",
-              "post_id": "241647",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "48777",
-              "embed_page": "https://saidochesto.top/embed.php?id=48777",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/a613966f80e4"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/9ohqj1weccm0"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/b3f9lrxadonr"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            },
-            {
-              "numero": 31,
-              "titulo": "Dr. Stone: Science Future Cap 31",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-31/",
-              "post_id": "241974",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "48855",
-              "embed_page": "https://saidochesto.top/embed.php?id=48855",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/64eaef798515"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/lsh5q45ksia5"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/4vt99qaomhn4"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            },
-            {
-              "numero": 32,
-              "titulo": "Dr. Stone: Science Future Cap 32",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-32/",
-              "post_id": "242261",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "48937",
-              "embed_page": "https://saidochesto.top/embed.php?id=48937",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/92353f1ca5ac"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/f2i5bvd2b1tk"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/ol4755ocvjrm"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            },
-            {
-              "numero": 33,
-              "titulo": "Dr. Stone: Science Future Cap 33",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-33/",
-              "post_id": "242518",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "49005",
-              "embed_page": "https://saidochesto.top/embed.php?id=49005",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/84a8cb0c4baa"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/pti7ica0tadt"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/u7jwgvjqrb7o"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            },
-            {
-              "numero": 34,
-              "titulo": "Dr. Stone: Science Future Cap 34",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-34/",
-              "post_id": "242880",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "49115",
-              "embed_page": "https://saidochesto.top/embed.php?id=49115",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/cbaffb1add9a"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/3fq1s3uhj652"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/3duts4wka3f8"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            },
-            {
-              "numero": 35,
-              "titulo": "Dr. Stone: Science Future Cap 35",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-35/",
-              "post_id": "243162",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "49179",
-              "embed_page": "https://saidochesto.top/embed.php?id=49179",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/946fce27bb5d"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/thtn0nses2w1"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/uj8kqq95gzi9",
-                  "stream_url": "https://streamwish.top/stream/j6E7rxztc2wvZ02Jofl7LQ/kjhhiuahiuhgihdf/1781868537/72736316/master.m3u8",
-                  "stream_tipo": "hls",
-                  "resuelto_el": "2026-06-18T23:29:00Z",
-                  "expira_el": "2026-06-19T11:28:57Z"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            },
-            {
-              "numero": 36,
-              "titulo": "Dr. Stone: Science Future Cap 36",
-              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-36/",
-              "post_id": "243491",
-              "nume": "1",
-              "type": "tv",
-              "embed_id": "49297",
-              "embed_page": "https://saidochesto.top/embed.php?id=49297",
-              "fuentes": [
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "ZOPLAYER",
-                  "host": "gupload.xyz",
-                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
-                  "embed_url": "https://gupload.xyz/data/e/683afc098664"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "EARNVIDS",
-                  "host": "filelions.top",
-                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
-                  "embed_url": "https://filelions.top/embed/23ww7i09xaa7"
-                },
-                {
-                  "idioma": "LAT",
-                  "idioma_nombre": "Español latino",
-                  "servidor": "STREAMWISH",
-                  "host": "streamwish.top",
-                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
-                  "embed_url": "https://streamwish.top/e/jo2o0xc627vj",
-                  "stream_url": "https://streamwish.top/stream/t5SP9W5CG8k4wXvC9gEy9w/kjhhiuahiuhgihdf/1781868391/72838246/master.m3u8",
-                  "stream_tipo": "hls",
-                  "resuelto_el": "2026-06-18T23:29:00Z",
-                  "expira_el": "2026-06-19T11:26:31Z"
-                }
-              ],
-              "inicio_seg": 0,
-              "fin_seg": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "serie": {
         "titulo": "One Piece",
         "slug": "one-piece",
         "tipo": "tv"
@@ -679,6 +390,865 @@ window.CANAL_DATA = {
               ],
               "inicio_seg": 180,
               "fin_seg": -100
+            },
+            {
+              "numero": 11,
+              "titulo": "One Piece Cap 11",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-11/",
+              "post_id": "100016",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13899",
+              "embed_page": "https://saidochesto.top/embed.php?id=13899",
+              "inicio_seg": 233,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/edqzifzsfgl1"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/nz7uh2tpo19y"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/gn8p40zgc844lz"
+                }
+              ]
+            },
+            {
+              "numero": 12,
+              "titulo": "One Piece Cap 12",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-12/",
+              "post_id": "100018",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13900",
+              "embed_page": "https://saidochesto.top/embed.php?id=13900",
+              "inicio_seg": 161,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/470fzyqwy8l7"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/t5lspu91tj0j"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/3nwdr9n6akzjo6"
+                }
+              ]
+            },
+            {
+              "numero": 13,
+              "titulo": "One Piece Cap 13",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-13/",
+              "post_id": "100020",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13901",
+              "embed_page": "https://saidochesto.top/embed.php?id=13901",
+              "inicio_seg": 201,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/hx0yuf4wz8ak"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/t7xwtlj8pmcc"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/mdpl4148t730ve"
+                }
+              ]
+            },
+            {
+              "numero": 14,
+              "titulo": "One Piece Cap 14",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-14/",
+              "post_id": "100022",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13902",
+              "embed_page": "https://saidochesto.top/embed.php?id=13902",
+              "inicio_seg": 170,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/ree5k241mzey"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/8c8b6c4hsdo1"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/0v7no98wh1jp4k"
+                }
+              ]
+            },
+            {
+              "numero": 15,
+              "titulo": "One Piece Cap 15",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-15/",
+              "post_id": "100024",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13903",
+              "embed_page": "https://saidochesto.top/embed.php?id=13903",
+              "inicio_seg": 195,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/9nk65rqp25wr"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/zsjd998w37xr"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/9ngj6139c33ejdv"
+                }
+              ]
+            },
+            {
+              "numero": 16,
+              "titulo": "One Piece Cap 16",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-16/",
+              "post_id": "100026",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13904",
+              "embed_page": "https://saidochesto.top/embed.php?id=13904",
+              "inicio_seg": 232,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/taxax1vbrww4"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/sikwt09f38je"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/7rzlg9los96ped"
+                }
+              ]
+            },
+            {
+              "numero": 17,
+              "titulo": "One Piece Cap 17",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-17/",
+              "post_id": "100028",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13905",
+              "embed_page": "https://saidochesto.top/embed.php?id=13905",
+              "inicio_seg": 148,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/yuqz6w1g3j1l"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/9pxgmdhrylkw"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/xoxnplxjalekzdn"
+                }
+              ]
+            },
+            {
+              "numero": 18,
+              "titulo": "One Piece Cap 18",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-18/",
+              "post_id": "100030",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13906",
+              "embed_page": "https://saidochesto.top/embed.php?id=13906",
+              "inicio_seg": 125,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/ici80vcxd8jw"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/sz9jgat7v08a"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/engp4nrxa7ozgw"
+                }
+              ]
+            },
+            {
+              "numero": 19,
+              "titulo": "One Piece Cap 19",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-19/",
+              "post_id": "100032",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13907",
+              "embed_page": "https://saidochesto.top/embed.php?id=13907",
+              "inicio_seg": 125,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/2n5l97houxjf"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/if7k33afa7zb"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/n0ewg0n3sjo6qj"
+                }
+              ]
+            },
+            {
+              "numero": 20,
+              "titulo": "One Piece Cap 20",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-20/",
+              "post_id": "100034",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13908",
+              "embed_page": "https://saidochesto.top/embed.php?id=13908",
+              "inicio_seg": 180,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/hl92ycxvt7y4"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/k42w68dmreh2"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/ql0xglg0txx0mog"
+                }
+              ]
+            },
+            {
+              "numero": 21,
+              "titulo": "One Piece Cap 21",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-21/",
+              "post_id": "100036",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13909",
+              "embed_page": "https://saidochesto.top/embed.php?id=13909",
+              "inicio_seg": 170,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/xa4wsxtlb8tz"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/92w6xl4q8x1e"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/rw7zgw49s8wwxz"
+                }
+              ]
+            },
+            {
+              "numero": 22,
+              "titulo": "One Piece Cap 22",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-22/",
+              "post_id": "100038",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13910",
+              "embed_page": "https://saidochesto.top/embed.php?id=13910",
+              "inicio_seg": 175,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/mssoui6bvcdr"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/r5h5rg325jne"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/zpm6qprjhgv3o04"
+                }
+              ]
+            },
+            {
+              "numero": 23,
+              "titulo": "One Piece Cap 23",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-23/",
+              "post_id": "100040",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13911",
+              "embed_page": "https://saidochesto.top/embed.php?id=13911",
+              "inicio_seg": 211,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/wb9r9evrx3iz"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/btnal6sabu2k"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/gn8p4nwgc979ng"
+                }
+              ]
+            },
+            {
+              "numero": 24,
+              "titulo": "One Piece Cap 24",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-24/",
+              "post_id": "100042",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13912",
+              "embed_page": "https://saidochesto.top/embed.php?id=13912",
+              "inicio_seg": 141,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/yr27dtwyzyak"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/gbdd3zn6ahkf"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/7rzlgrevtgnqk0"
+                }
+              ]
+            },
+            {
+              "numero": 25,
+              "titulo": "One Piece Cap 25",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-25/",
+              "post_id": "100044",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13913",
+              "embed_page": "https://saidochesto.top/embed.php?id=13913",
+              "inicio_seg": 159,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/hl3lqk1l8xe3"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/bv8i9jcq4b8k"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/xoxnpw99c9nnk9"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "serie": {
+        "titulo": "Dr. Stone: Science Future",
+        "slug": "dr-stone-science-future",
+        "tipo": "tv"
+      },
+      "temporadas": [
+        {
+          "numero": 4,
+          "titulo": "Science Future",
+          "capitulos": [
+            {
+              "numero": 30,
+              "titulo": "Dr. Stone: Science Future Cap 30",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-30/",
+              "post_id": "241647",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "48777",
+              "embed_page": "https://saidochesto.top/embed.php?id=48777",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/a613966f80e4"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/9ohqj1weccm0"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/b3f9lrxadonr"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
+            },
+            {
+              "numero": 31,
+              "titulo": "Dr. Stone: Science Future Cap 31",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-31/",
+              "post_id": "241974",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "48855",
+              "embed_page": "https://saidochesto.top/embed.php?id=48855",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/64eaef798515"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/lsh5q45ksia5"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/4vt99qaomhn4"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
+            },
+            {
+              "numero": 32,
+              "titulo": "Dr. Stone: Science Future Cap 32",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-32/",
+              "post_id": "242261",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "48937",
+              "embed_page": "https://saidochesto.top/embed.php?id=48937",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/92353f1ca5ac"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/f2i5bvd2b1tk"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/ol4755ocvjrm"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
+            },
+            {
+              "numero": 33,
+              "titulo": "Dr. Stone: Science Future Cap 33",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-33/",
+              "post_id": "242518",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "49005",
+              "embed_page": "https://saidochesto.top/embed.php?id=49005",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/84a8cb0c4baa"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/pti7ica0tadt"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/u7jwgvjqrb7o"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
+            },
+            {
+              "numero": 34,
+              "titulo": "Dr. Stone: Science Future Cap 34",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-34/",
+              "post_id": "242880",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "49115",
+              "embed_page": "https://saidochesto.top/embed.php?id=49115",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/cbaffb1add9a"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/3fq1s3uhj652"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/3duts4wka3f8"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
+            },
+            {
+              "numero": 35,
+              "titulo": "Dr. Stone: Science Future Cap 35",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-35/",
+              "post_id": "243162",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "49179",
+              "embed_page": "https://saidochesto.top/embed.php?id=49179",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/946fce27bb5d"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/thtn0nses2w1"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/uj8kqq95gzi9",
+                  "stream_url": "https://streamwish.top/stream/j6E7rxztc2wvZ02Jofl7LQ/kjhhiuahiuhgihdf/1781868537/72736316/master.m3u8",
+                  "stream_tipo": "hls",
+                  "resuelto_el": "2026-06-18T23:29:00Z",
+                  "expira_el": "2026-06-19T11:28:57Z"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
+            },
+            {
+              "numero": 36,
+              "titulo": "Dr. Stone: Science Future Cap 36",
+              "url": "https://ww3.animeonline.ninja/episodio/dr-stone-science-future-cap-36/",
+              "post_id": "243491",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "49297",
+              "embed_page": "https://saidochesto.top/embed.php?id=49297",
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "ZOPLAYER",
+                  "host": "gupload.xyz",
+                  "descripcion": "Audio Latino - Max. 4 ventanas de publicidad | HD",
+                  "embed_url": "https://gupload.xyz/data/e/683afc098664"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/embed/23ww7i09xaa7"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/jo2o0xc627vj",
+                  "stream_url": "https://streamwish.top/stream/t5SP9W5CG8k4wXvC9gEy9w/kjhhiuahiuhgihdf/1781868391/72838246/master.m3u8",
+                  "stream_tipo": "hls",
+                  "resuelto_el": "2026-06-18T23:29:00Z",
+                  "expira_el": "2026-06-19T11:26:31Z"
+                }
+              ],
+              "inicio_seg": 0,
+              "fin_seg": null
             }
           ]
         }
