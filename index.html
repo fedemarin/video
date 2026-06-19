@@ -117,7 +117,7 @@
     let series = [];          // [{titulo, capitulos:[...]}]
     let idxSerie = 0, idxCap = 0, idxFuente = 0;
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
-    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioIntentos = 0;
+    let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioDeadline = 0;
 
     // El orden marca la PRIORIDAD: StreamWish primero (default), luego EarnVids.
     const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS", "STREAMTAPE"];
@@ -214,7 +214,8 @@
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
-      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false; inicioIntentos = 0;
+      inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false;
+      inicioDeadline = Date.now() + 12000; // ventana para forzar el inicio
       $("#next-banner").classList.remove("mostrar");
       userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
@@ -253,12 +254,13 @@
         $("#b-mute").textContent = d.muted ? "🔇" : "🔊";
         if (!seekeando && !$("#vol").matches(":active")) $("#vol").value = d.muted ? 0 : d.volume;
 
-        // saltar al inicio configurado: reintentamos hasta confirmar la posición
-        // (algunos players ignoran el primer seek si todavía no están listos).
+        // forzar el inicio configurado: mientras estemos en la ventana inicial
+        // y el video esté por debajo del inicio, seguimos mandando el seek.
+        // Esto cubre players (ej. Streamtape) que recargan/reinician a 0.
         if (!inicioAplicado && inicioSeg > 0 && dur > 0) {
-          if (d.t >= inicioSeg - 3) { inicioAplicado = true; }      // ya llegó
-          else if (inicioIntentos < 25) { inicioIntentos++; cmd("seek", inicioSeg); }
-          else { inicioAplicado = true; }                          // me rindo tras varios intentos
+          if (d.t >= inicioSeg - 3) inicioAplicado = true;          // ya quedó posicionado
+          else if (Date.now() < inicioDeadline) cmd("seek", inicioSeg);
+          else inicioAplicado = true;                               // se agotó la ventana
         }
         // fin configurado: >=0 segundo absoluto; <0 = "N seg antes del final"
         let finReal = null;
