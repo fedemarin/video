@@ -119,15 +119,43 @@
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
     let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false, inicioIntentos = 0;
 
-    // El orden marca la PRIORIDAD: EarnVids primero (default), luego StreamWish.
-    const SERVIDORES_SOPORTADOS = ["EARNVIDS", "STREAMWISH"];
-    const CANALES = ["streamwish", "earnvids"]; // userscripts que hablan con el canal
-    function fuenteInicial(cap) {
-      for (const srv of SERVIDORES_SOPORTADOS) {
-        const i = cap.fuentes.findIndex((f) => (f.servidor || "").toUpperCase() === srv);
-        if (i >= 0) return i;
+    // El orden marca la PRIORIDAD: StreamWish primero (default), luego EarnVids.
+    const SERVIDORES_SOPORTADOS = ["STREAMWISH", "EARNVIDS"];
+    const CANALES = ["streamwish", "earnvids"]; // canales que envía FedePlayer
+
+    // Orden en que se prueban los servidores de un capítulo:
+    // primero los soportados (por prioridad), luego el resto como respaldo.
+    function ordenFuentes(cap) {
+      const sup = [];
+      SERVIDORES_SOPORTADOS.forEach((srv) => {
+        cap.fuentes.forEach((f, i) => { if ((f.servidor || "").toUpperCase() === srv) sup.push(i); });
+      });
+      const resto = cap.fuentes.map((_, i) => i).filter((i) => !sup.includes(i));
+      return sup.concat(resto);
+    }
+
+    let ordenActual = [], posOrden = 0, reproduciendoOK = false, fallbackTimer = null;
+
+    function cargarCapitulo() {
+      const cap = series[idxSerie].caps[idxCap];
+      ordenActual = ordenFuentes(cap);
+      posOrden = 0;
+      idxFuente = ordenActual[0];
+      reproducir();
+    }
+
+    // Cambia al siguiente servidor de respaldo del capítulo actual.
+    function probarSiguienteFuente(motivo) {
+      if (reproduciendoOK) return;
+      if (posOrden + 1 < ordenActual.length) {
+        posOrden++;
+        idxFuente = ordenActual[posOrden];
+        const nom = series[idxSerie].caps[idxCap].fuentes[idxFuente].servidor;
+        estado("Servidor falló (" + (motivo || "") + "). Probando " + nom + "…");
+        reproducir();
+      } else {
+        estado("Ningún servidor del capítulo respondió.");
       }
-      return 0;
     }
     function estado(m) { $("#estado").textContent = m; }
     function fmt(s) { s = Math.max(0, Math.floor(s || 0)); const m = Math.floor(s / 60); const x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
@@ -188,31 +216,37 @@
       pintarServidores(cap);
       inicioSeg = cap.inicio_seg || 0; finSeg = cap.fin_seg; inicioAplicado = (inicioSeg <= 0); finHabilitado = false; inicioIntentos = 0;
       $("#next-banner").classList.remove("mostrar");
-      userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; setPlayIcon(false);
+      userscriptActivo = false; dur = 0; lastT = 0; avanzando = false; reproduciendoOK = false; setPlayIcon(false);
       iframe.src = fuente.embed_url;
       estado("Cargando " + fuente.servidor + "…");
       setTimeout(() => {
-        $("#aviso").textContent = userscriptActivo ? "" :
+        if (!reproduciendoOK) $("#aviso").textContent =
           "⚠ No detecté FedePlayer en este servidor (sin la extensión hay publicidad y no andan los controles). Instalá/recargá la extensión FedePlayer o probá otro servidor.";
       }, 4500);
+      // failover: si el servidor no arranca en 10s, probar el siguiente.
+      clearTimeout(fallbackTimer);
+      fallbackTimer = setTimeout(() => probarSiguienteFuente("sin respuesta"), 10000);
     }
     function irA(delta) {
       const serie = series[idxSerie];
       const n = idxCap + delta;
       if (n < 0 || n >= serie.caps.length) return;
-      idxCap = n; idxFuente = fuenteInicial(serie.caps[n]); reproducir();
+      idxCap = n; cargarCapitulo();
     }
 
     // ---- estado del userscript ----
     function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "⏸" : "▶"; }
     window.addEventListener("message", (ev) => {
       const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
+      if (d.tipo === "error") { probarSiguienteFuente(d.motivo || "error"); return; }
       if (d.tipo === "listo" || d.tipo === "play") {
         userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (FedePlayer activo).");
         avanzando = false; // el nuevo capítulo ya arrancó: rehabilita el auto-siguiente
       }
       if (d.tipo === "estado") {
         userscriptActivo = true; setPlayIcon(!!d.playing);
+        // el video está reproduciendo de verdad: cancela el failover de este intento
+        if (d.playing && (d.t > 0 || d.dur > 0)) { reproduciendoOK = true; clearTimeout(fallbackTimer); }
         dur = d.dur || dur; lastT = d.t || 0;
         if (!seekeando && dur) $("#prog").value = (d.t / dur) * 100;
         $("#tiempo").textContent = fmt(d.t) + " / " + fmt(dur);
@@ -262,9 +296,13 @@
     // ---- navegacion (fuera del reproductor) ----
     $("#b-prev").addEventListener("click", () => irA(-1));
     $("#b-next").addEventListener("click", () => irA(1));
-    $("#sel-cap").addEventListener("change", (e) => { idxCap = +e.target.value; idxFuente = fuenteInicial(series[idxSerie].caps[idxCap]); reproducir(); });
-    $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; reproducir(); });
-    $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; pintarCaps(series[idxSerie]); idxFuente = fuenteInicial(series[idxSerie].caps[0]); reproducir(); });
+    $("#sel-cap").addEventListener("change", (e) => { idxCap = +e.target.value; cargarCapitulo(); });
+    $("#sel-servidor").addEventListener("change", (e) => {
+      idxFuente = +e.target.value;
+      const p = ordenActual.indexOf(idxFuente); posOrden = p >= 0 ? p : 0; // seguir el failover desde acá
+      reproducir();
+    });
+    $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; pintarCaps(series[idxSerie]); cargarCapitulo(); });
 
     // ---- mostrar/ocultar controles con el mouse ----
     let tOcultar;
@@ -283,8 +321,7 @@
         if (!series.length) { estado("No hay series con fuentes en latino."); return; }
         pintarSelectSeries();
         pintarCaps(series[idxSerie]);
-        idxFuente = fuenteInicial(series[idxSerie].caps[idxCap]);
-        reproducir();
+        cargarCapitulo();
       } catch (e) { estado("No se pudieron cargar los datos. " + e.message); }
     })();
   </script>

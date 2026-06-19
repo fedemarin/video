@@ -960,6 +960,766 @@ window.CANAL_DATA = {
                   "embed_url": "https://mxdrop.to/e/xoxnpw99c9nnk9"
                 }
               ]
+            },
+            {
+              "numero": 26,
+              "titulo": "One Piece Cap 26",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-26/",
+              "post_id": "100046",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13914",
+              "embed_page": "https://saidochesto.top/embed.php?id=13914",
+              "inicio_seg": 128,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/v7yuppa4sujm"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/j4lo33ndoi2o"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/1vkrgng1io8nkp"
+                }
+              ]
+            },
+            {
+              "numero": 27,
+              "titulo": "One Piece Cap 27",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-27/",
+              "post_id": "100048",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13915",
+              "embed_page": "https://saidochesto.top/embed.php?id=13915",
+              "inicio_seg": 195,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/j3vqsxqdwvk2"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/pwwzowjcgkr8"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/ql0xg1lgfxg776r"
+                }
+              ]
+            },
+            {
+              "numero": 28,
+              "titulo": "One Piece Cap 28",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-28/",
+              "post_id": "100050",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13916",
+              "embed_page": "https://saidochesto.top/embed.php?id=13916",
+              "inicio_seg": 222,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/beac2gam8py0"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/e739xcew1xjj"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/dqmp4klganemnv"
+                }
+              ]
+            },
+            {
+              "numero": 29,
+              "titulo": "One Piece Cap 29",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-29/",
+              "post_id": "100052",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13917",
+              "embed_page": "https://saidochesto.top/embed.php?id=13917",
+              "inicio_seg": 236,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/c7rc3lfd0n9i"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/rb60klu1n7t6"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/engp4lm9c4djn6"
+                }
+              ]
+            },
+            {
+              "numero": 30,
+              "titulo": "One Piece Cap 30",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-30/",
+              "post_id": "100054",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13918",
+              "embed_page": "https://saidochesto.top/embed.php?id=13918",
+              "inicio_seg": 255,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/ewf6j90oarh7"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/qif9d6vjh38x"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/gn8p4jw9aw6ke4"
+                }
+              ]
+            },
+            {
+              "numero": 31,
+              "titulo": "One Piece Cap 31",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-31/",
+              "post_id": "100056",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13919",
+              "embed_page": "https://saidochesto.top/embed.php?id=13919",
+              "inicio_seg": 125,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/2w2yj2b3ugtc"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/7l6p1eep0p1u"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/engplkqqbnoq71"
+                }
+              ]
+            },
+            {
+              "numero": 32,
+              "titulo": "One Piece Cap 32",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-32/",
+              "post_id": "100058",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13920",
+              "embed_page": "https://saidochesto.top/embed.php?id=13920",
+              "inicio_seg": 125,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/fap744cpybjm"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/561nwnaw5al9"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/0v7n31dlu8nx8d"
+                }
+              ]
+            },
+            {
+              "numero": 33,
+              "titulo": "One Piece Cap 33",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-33/",
+              "post_id": "100060",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13921",
+              "embed_page": "https://saidochesto.top/embed.php?id=13921",
+              "inicio_seg": 152,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/vha7kh4dozec"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/hekrdb8fuotq"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/0v7n31gxsklolwn"
+                }
+              ]
+            },
+            {
+              "numero": 34,
+              "titulo": "One Piece Cap 34",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-34/",
+              "post_id": "100062",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13922",
+              "embed_page": "https://saidochesto.top/embed.php?id=13922",
+              "inicio_seg": 186,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/hr7hqva2e9bt"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/nfzqu0s7g3yr"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/xoxnw8e9cgp1xm"
+                }
+              ]
+            },
+            {
+              "numero": 35,
+              "titulo": "One Piece Cap 35",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-35/",
+              "post_id": "100064",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13923",
+              "embed_page": "https://saidochesto.top/embed.php?id=13923",
+              "inicio_seg": 195,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/vndsho6cm9jh"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/jdvqtthba1a3"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/7rzlkvomhmqmm6"
+                }
+              ]
+            },
+            {
+              "numero": 36,
+              "titulo": "One Piece Cap 36",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-36/",
+              "post_id": "100066",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13924",
+              "embed_page": "https://saidochesto.top/embed.php?id=13924",
+              "inicio_seg": 125,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/d6qdjdhtxzaj"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/7qf8avuqn87z"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/kno70d10ivgrpp"
+                }
+              ]
+            },
+            {
+              "numero": 37,
+              "titulo": "One Piece Cap 37",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-37/",
+              "post_id": "100068",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13925",
+              "embed_page": "https://saidochesto.top/embed.php?id=13925",
+              "inicio_seg": 242,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/y714aj1ne5g2"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/bkdlgvg5ont3"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/gn8pjrj7b96d74"
+                }
+              ]
+            },
+            {
+              "numero": 38,
+              "titulo": "One Piece Cap 38",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-38/",
+              "post_id": "100070",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13926",
+              "embed_page": "https://saidochesto.top/embed.php?id=13926",
+              "inicio_seg": 197,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/cawyopteyx2v"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/gtzm8spy2uzu"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/dqmpk8l3bpl9qj"
+                }
+              ]
+            },
+            {
+              "numero": 39,
+              "titulo": "One Piece Cap 39",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-39/",
+              "post_id": "100072",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13927",
+              "embed_page": "https://saidochesto.top/embed.php?id=13927",
+              "inicio_seg": 205,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/6p1qxnehtpuj"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/lxpslsn8jubg"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/9ngjwejotgjp7x"
+                }
+              ]
+            },
+            {
+              "numero": 40,
+              "titulo": "One Piece Cap 40",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-40/",
+              "post_id": "100074",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13928",
+              "embed_page": "https://saidochesto.top/embed.php?id=13928",
+              "inicio_seg": 195,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/4by4tre98qmi"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/yyciw9t5tkqp"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/pkd1j7gnug76xgo"
+                }
+              ]
+            },
+            {
+              "numero": 41,
+              "titulo": "One Piece Cap 41",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-41/",
+              "post_id": "100076",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13929",
+              "embed_page": "https://saidochesto.top/embed.php?id=13929",
+              "inicio_seg": 267,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/zgpwitiq6rtr"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/lmy1iqhd9g8c"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/l64k748rad303d"
+                }
+              ]
+            },
+            {
+              "numero": 42,
+              "titulo": "One Piece Cap 42",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-42/",
+              "post_id": "100078",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13930",
+              "embed_page": "https://saidochesto.top/embed.php?id=13930",
+              "inicio_seg": 225,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/hjwnomgz6pao"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/1mp7251yrew1"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/engpl3lda3oeqw"
+                }
+              ]
+            },
+            {
+              "numero": 43,
+              "titulo": "One Piece Cap 43",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-43/",
+              "post_id": "100080",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13931",
+              "embed_page": "https://saidochesto.top/embed.php?id=13931",
+              "inicio_seg": 230,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/pmpu0y453sml"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/sjgmavkb3qbh"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/j9r0do7lcx7mzq"
+                }
+              ]
+            },
+            {
+              "numero": 44,
+              "titulo": "One Piece Cap 44",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-44/",
+              "post_id": "100082",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13932",
+              "embed_page": "https://saidochesto.top/embed.php?id=13932",
+              "inicio_seg": 189,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/jx45ve0iul1a"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/vn43if60g38k"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/zpm613n0u48wmx"
+                }
+              ]
+            },
+            {
+              "numero": 45,
+              "titulo": "One Piece Cap 45",
+              "url": "https://ww3.animeonline.ninja/episodio/one-piece-cap-45/",
+              "post_id": "100084",
+              "nume": "1",
+              "type": "tv",
+              "embed_id": "13933",
+              "embed_page": "https://saidochesto.top/embed.php?id=13933",
+              "inicio_seg": 125,
+              "fin_seg": -100,
+              "fuentes": [
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "EARNVIDS",
+                  "host": "filelions.top",
+                  "descripcion": "Audio Latino - Multicalidad | Poca Publicidad",
+                  "embed_url": "https://filelions.top/v/d16q5uw9xnmc"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "STREAMWISH",
+                  "host": "streamwish.top",
+                  "descripcion": "Audio Latino - Multicalidad | Max. 3 ventanas emergentes",
+                  "embed_url": "https://streamwish.top/e/225huzzom80t"
+                },
+                {
+                  "idioma": "LAT",
+                  "idioma_nombre": "Español latino",
+                  "servidor": "MIXDROP",
+                  "host": "mxdrop.to",
+                  "descripcion": "Audio Latino",
+                  "embed_url": "https://mxdrop.to/e/84mwlmrein474n"
+                }
+              ]
             }
           ]
         }
