@@ -87,9 +87,9 @@
 
     <!-- navegacion de capitulos, FUERA del reproductor -->
     <div class="nav-caps">
-      <button id="b-prev">⏮ Capítulo anterior</button>
-      <span class="chip" id="cap">—</span>
-      <button id="b-next">Capítulo siguiente ⏭</button>
+      <button id="b-prev">⏮ Anterior</button>
+      <label class="chip">Episodio: <select id="sel-cap"></select></label>
+      <button id="b-next">Siguiente ⏭</button>
     </div>
 
     <div class="chips">
@@ -112,10 +112,15 @@
     let userscriptActivo = false, dur = 0, lastT = 0, seekeando = false, playing = false, avanzando = false;
     let inicioSeg = 0, finSeg = null, inicioAplicado = false, finHabilitado = false;
 
-    const SERVIDORES_SOPORTADOS = ["STREAMWISH"];
+    // El orden marca la PRIORIDAD: EarnVids primero (default), luego StreamWish.
+    const SERVIDORES_SOPORTADOS = ["EARNVIDS", "STREAMWISH"];
+    const CANALES = ["streamwish", "earnvids"]; // userscripts que hablan con el canal
     function fuenteInicial(cap) {
-      const i = cap.fuentes.findIndex((f) => SERVIDORES_SOPORTADOS.includes((f.servidor || "").toUpperCase()));
-      return i >= 0 ? i : 0;
+      for (const srv of SERVIDORES_SOPORTADOS) {
+        const i = cap.fuentes.findIndex((f) => (f.servidor || "").toUpperCase() === srv);
+        if (i >= 0) return i;
+      }
+      return 0;
     }
     function estado(m) { $("#estado").textContent = m; }
     function fmt(s) { s = Math.max(0, Math.floor(s || 0)); const m = Math.floor(s / 60); const x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
@@ -147,6 +152,15 @@
       series.forEach((s, i) => { const o = document.createElement("option"); o.value = i; o.textContent = s.titulo; sel.appendChild(o); });
       sel.value = idxSerie;
     }
+    function pintarCaps(serie) {
+      const sel = $("#sel-cap"); sel.innerHTML = "";
+      serie.caps.forEach((c, i) => {
+        const o = document.createElement("option");
+        o.value = i;
+        o.textContent = `T${c.temporada} E${c.capitulo}` + (c.titulo ? " · " + c.titulo : "");
+        sel.appendChild(o);
+      });
+    }
     function pintarServidores(cap) {
       const sel = $("#sel-servidor"); sel.innerHTML = "";
       cap.fuentes.forEach((f, i) => { const o = document.createElement("option"); o.value = i; o.textContent = f.servidor; sel.appendChild(o); });
@@ -158,9 +172,9 @@
       const cap = serie.caps[idxCap]; if (!cap) return;
       const fuente = cap.fuentes[idxFuente];
       $("#serie").textContent = serie.titulo;
-      $("#cap").textContent = `T${cap.temporada} · E${cap.capitulo}`;
       $("#chip-idioma").textContent = fuente.idioma_nombre || "Latino";
       $("#contador").textContent = `Cap ${idxCap + 1}/${serie.caps.length}`;
+      $("#sel-cap").value = idxCap;
       $("#b-prev").disabled = idxCap === 0;
       $("#b-next").disabled = idxCap === serie.caps.length - 1;
       pintarServidores(cap);
@@ -184,7 +198,7 @@
     // ---- estado del userscript ----
     function setPlayIcon(p) { playing = p; $("#b-play").textContent = p ? "⏸" : "▶"; }
     window.addEventListener("message", (ev) => {
-      const d = ev.data || {}; if (d.canal !== "streamwish") return;
+      const d = ev.data || {}; if (!CANALES.includes(d.canal)) return;
       if (d.tipo === "listo" || d.tipo === "play") {
         userscriptActivo = true; $("#aviso").textContent = ""; estado("Reproduciendo (userscript activo).");
         avanzando = false; // el nuevo capítulo ya arrancó: rehabilita el auto-siguiente
@@ -239,8 +253,9 @@
     // ---- navegacion (fuera del reproductor) ----
     $("#b-prev").addEventListener("click", () => irA(-1));
     $("#b-next").addEventListener("click", () => irA(1));
+    $("#sel-cap").addEventListener("change", (e) => { idxCap = +e.target.value; idxFuente = fuenteInicial(series[idxSerie].caps[idxCap]); reproducir(); });
     $("#sel-servidor").addEventListener("change", (e) => { idxFuente = +e.target.value; reproducir(); });
-    $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; idxFuente = fuenteInicial(series[idxSerie].caps[0]); reproducir(); });
+    $("#sel-serie").addEventListener("change", (e) => { idxSerie = +e.target.value; idxCap = 0; pintarCaps(series[idxSerie]); idxFuente = fuenteInicial(series[idxSerie].caps[0]); reproducir(); });
 
     // ---- mostrar/ocultar controles con el mouse ----
     let tOcultar;
@@ -258,6 +273,7 @@
         series = normalizar(await obtenerDatos());
         if (!series.length) { estado("No hay series con fuentes en latino."); return; }
         pintarSelectSeries();
+        pintarCaps(series[idxSerie]);
         idxFuente = fuenteInicial(series[idxSerie].caps[idxCap]);
         reproducir();
       } catch (e) { estado("No se pudieron cargar los datos. " + e.message); }

@@ -26,10 +26,11 @@ Instalacion (el usuario lo hace una vez)
 1) Instalar Tampermonkey (gratis) desde la tienda del navegador:
    Chrome/Edge/Firefox/Brave. (En iPhone no anda; en Android usar
    Firefox o Kiwi Browser.)
-2) Abrir el archivo streamwish.user.js -> Tampermonkey ofrece instalarlo.
-   - Si lo publicas en GitHub Pages, alcanza con entrar a:
-     https://TU_USUARIO.github.io/TU_REPO/streamwish.user.js
-     y se instala de un clic, con auto-actualizacion incluida.
+2) Instalar los userscripts (uno por servidor soportado). Entrar a cada URL y
+   Tampermonkey ofrece instalarlos, con auto-actualizacion:
+     https://fedemarin.github.io/video/streamwish.user.js
+     https://fedemarin.github.io/video/earnvids.user.js
+   (STREAMWISH y EARNVIDS. Se pueden tener los dos a la vez.)
 3) Listo. Entrar a tu canal (index.html) y reproducir.
 
 Publicar en GitHub Pages
